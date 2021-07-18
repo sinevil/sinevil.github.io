@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>blog</title>
+  
+  <subtitle>Sinevil</subtitle>
+  <link href="https://sinevil.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://sinevil.github.io/"/>
+  <updated>2021-07-18T07:41:05.980Z</updated>
+  <id>https://sinevil.github.io/</id>
+  
+  <author>
+    <name>Mr.Li</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>port</title>
+    <link href="https://sinevil.github.io/2021/07/18/port/"/>
+    <id>https://sinevil.github.io/2021/07/18/port/</id>
+    <published>2021-07-18T03:06:11.000Z</published>
+    <updated>2021-07-18T07:41:05.980Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">常见端口汇总</span><br><span class="line">21端口：是FTP文件传输协议（控制）代理服务常用端口，用于连接</span><br><span class="line">22端口：是SSH远程登录协议的默认端口</span><br><span class="line">23端口：telnet（终端仿真协议）代理服务器常用端口</span><br><span class="line">80端口：http（超文本传输协议）用于网页浏览</span><br><span class="line">443端口：https服务，是提供加密和通过安全端口传输的另一种HTTP。</span><br><span class="line">1433端口：Microsoft的SQL服务默认端口</span><br><span class="line">1521端口：Oracle数据库默认端口</span><br><span class="line">3306端口：MySQL默认端口</span><br><span class="line">3389端口：Windows 2000远程桌面默认端口</span><br><span class="line">5432端口：PostgreSQL数据库的默认端口</span><br><span class="line">6379端口：阿里云开放的Redis的默认端口</span><br><span class="line">7001端口：Freak88，Weblogic默认端口</span><br><span class="line">7002端口：使用者&amp;组 数据库</span><br><span class="line">8080端口：www代理服务默认端口</span><br><span class="line">27017端口：MongoDB数据库默认端口</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=</summary>
+      
+    
+    
+    
+    
+    <category term="port" scheme="https://sinevil.github.io/tags/port/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>渗透tomcat</title>
+    <link href="https://sinevil.github.io/2021/07/15/tomcat/"/>
+    <id>https://sinevil.github.io/2021/07/15/tomcat/</id>
+    <published>2021-07-15T07:58:00.000Z</published>
+    <updated>2021-07-18T06:33:25.306Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li> 打开网页获取有效信息，Apache Tomcat/8.0.43及其醒目，猜测为一款软件以及他的版本号</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210716090825.png" alt="QQ截图20210716090825"></p><ul><li>不晓得tomca是什么，百度一波</li></ul><p>Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p><ul><li>因为要渗透该靶场，所以查看一下comcat的目录情况，深入了解comcat的信息</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/bin  <span class="comment">#二进制文件</span></span><br><span class="line"> startup.bat      <span class="comment">#启动tomcat服务</span></span><br><span class="line"> shutdown.bat     <span class="comment">#关闭tomcat服务</span></span><br><span class="line">/conf  <span class="comment">#配置文件 </span></span><br><span class="line"> sever.xml        <span class="comment">#定义了tomcat启动时涉及的组件属性</span></span><br><span class="line"> tomcat-users.xml <span class="comment">#tomcat的用户密码和权限</span></span><br><span class="line"> web.xml          <span class="comment">#定义servlet </span></span><br><span class="line">/lib   <span class="comment">#存放全局的jar包</span></span><br><span class="line">/logs  <span class="comment">#日志</span></span><br><span class="line">/temp  <span class="comment">#临时文件</span></span><br><span class="line">/webapps  <span class="comment">#存放JAVA的WEB项目            </span></span><br><span class="line">        /manager  <span class="comment">#后台登录界面</span></span><br><span class="line">        /ROOT     <span class="comment">#根目录</span></span><br><span class="line">/work  <span class="comment">#存放jsp编译后产生的class文件</span></span><br></pre></td></tr></table></figure><ul><li>comcat有一个后台登录界面，我们尝试访问一下，弹出登录框，我们首先想到爆破，但是可以先搜索一下comcat有哪些漏洞可以利用</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715163504.png" alt="QQ截图20210715163504"></p><ul><li>直接搜一波tomcat的漏洞</li></ul><p><del><strong>CVE-2017-12615</strong></del></p><p><del><strong>影响版本</strong>：Tomcat 7.0.0 ～ 7.0.79</del></p><p><del><strong>影响说明</strong>：上传webshell，任意命令执行</del></p><blockquote><p>该漏洞与提供的靶场版本不符</p></blockquote><p><del><strong>CVE-2020-1938</strong></del></p><p><del><strong>影响版本</strong>:</del></p><p><del>Apache Tomcat 9.x &lt; 9.0.31</del></p><p><del>Apache Tomcat 8.x &lt; 8.5.51</del></p><p><del>Apache Tomcat 7.x &lt; 7.0.100</del> </p><p><del>Apache Tomcat 6.x</del></p><p><del><strong>影响说明</strong>：读取webapp下的所有文件</del></p><blockquote><p>未尝试</p></blockquote><p><strong>弱口令</strong></p><p><strong>影响版本</strong>：全版本</p><p><strong>环境说明</strong>：后台上传文件，getshell</p><ul><li><p>因为存在后台登录界面，介于自锁功能已经关闭，利用弱密码漏洞进行爆破</p><p>msf自带针对tomcat弱密码的爆破功能，在修改字典文档后进行爆破，得到tomcat的账号以及密码</p></li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715145404.png" alt="QQ截图20210715145404"></p><ul><li>进入tomcat的后台，发现文件上传点</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715153939.png" alt="QQ截图20210715153939"></p><ul><li>标识需要上传一个<code>.war</code>文件，将冰蝎自配的<code>.jsp</code>打包成<code>.war</code>文件后上传，上传成功</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154059.png" alt="QQ截图20210715154059"></p><ul><li>再用连接冰蝎，获取shell，寻找flag</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154414.png" alt="QQ截图20210715154414"></p><ul><li>在根目录下找到一个flag文件，但是flag信息为fake flag，查看主机系统为liunx，使用find命令查询所有带flag文件，最后发现只有一个flag文件，在根目录下，判断为所找的flag</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154747.png" alt="QQ截图20210715154747"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt; 打开网页获取有效信息，Apache Tomcat/8.0.43及其醒目，猜测为一款软件以及他的版本号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210716090825.p</summary>
+      
+    
+    
+    
+    
+    <category term="tomcat" scheme="https://sinevil.github.io/tags/tomcat/"/>
+    
+  </entry>
+  
+</feed>
