@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://sinevil.github.io/2021/07/18/port/</loc>
+    <loc>https://sinevil.github.io/2021/07/15/tomcat/</loc>
     
     <lastmod>2021-07-18</lastmod>
     
   </url>
   
   <url>
-    <loc>https://sinevil.github.io/2021/07/15/tomcat/</loc>
+    <loc>https://sinevil.github.io/2021/07/18/port/</loc>
     
     <lastmod>2021-07-18</lastmod>
     
@@ -39,5 +39,19 @@
   </url>
   
 
+  
+  <url>
+    <loc>https://sinevil.github.io/categories/web%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2021-07-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sinevil.github.io/categories/%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/</loc>
+    <lastmod>2021-07-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
 </urlset>
