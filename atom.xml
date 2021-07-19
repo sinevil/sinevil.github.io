@@ -6,7 +6,7 @@
   <link href="https://sinevil.github.io/atom.xml" rel="self"/>
   
   <link href="https://sinevil.github.io/"/>
-  <updated>2021-07-18T08:23:13.079Z</updated>
+  <updated>2021-07-19T11:38:18.055Z</updated>
   <id>https://sinevil.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>yijuhua</title>
+    <link href="https://sinevil.github.io/2021/07/19/yijuhua/"/>
+    <id>https://sinevil.github.io/2021/07/19/yijuhua/</id>
+    <published>2021-07-19T11:23:05.000Z</published>
+    <updated>2021-07-19T11:38:18.055Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>php一句话木马</li></ul><p><code>&lt;?php @eval($_POST[&#39;cmd&#39;]);?&gt; </code></p><blockquote><p>php代码写在<?php ?> 中是因为这样服务器才能识别其为php代码，然后进行解析</p><p><code>@</code>符号的作用是不报错</p><p>php eval()的作用：把字符串按照php代码来计算，此字符串必须是合法的php代码，且必须以分号结尾</p><p>如果没有在代码字符串中调用return语句，则返回null，如果代码解析错误，则eval()函数返回false</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;php一句话木马&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;?php @eval($_POST[&amp;#39;cmd&amp;#39;]);?&amp;gt; &lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;php代码写在&lt;?php ?&gt; 中是因为这样服务器才能识别其</summary>
+      
+    
+    
+    
+    <category term="web基础" scheme="https://sinevil.github.io/categories/web%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="Webshell" scheme="https://sinevil.github.io/tags/Webshell/"/>
+    
+  </entry>
   
   <entry>
     <title>port</title>
