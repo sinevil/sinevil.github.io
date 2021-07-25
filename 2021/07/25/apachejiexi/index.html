@@ -22,23 +22,23 @@
 <ul>
 <li>打开环境，可以清晰的发现是一个文件上传点，我们首先选择对其查看源码</li>
 </ul>
-<p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210723104444.png" alt="QQ截图20210723104444"></p>
+<p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210723104444.png" alt="QQ截图20210723104444"></p>
 <ul>
 <li>源码中并无法确认是属于什么类型的文件上传，但是文件上传只是一个站的其中一个功能，选择对这个站进行信息搜集</li>
 </ul>
-<p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210725091747.png" alt="QQ截图20210725091747"></p>
+<p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210725091747.png" alt="QQ截图20210725091747"></p>
 <ul>
 <li>发现其中间件有Apache，且Apache版本为2.4.10</li>
 </ul>
-<p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210725102727.png" alt="QQ截图20210725102727"></p>
+<p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210725102727.png" alt="QQ截图20210725102727"></p>
 <ul>
 <li>搜寻到Apache的换行解析漏洞，通过bp抓包上传一个一句话的<code>.php</code>文件并在其后缀加上换行符</li>
 </ul>
-<p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210725092156.png" alt="QQ截图20210725092156"></p>
+<p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210725092156.png" alt="QQ截图20210725092156"></p>
 <ul>
 <li>将其发包，通过phpinfo();函数判断其是否上传成功并获取shell</li>
 </ul>
-<p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210725092319.png" alt="QQ截图20210725092319"></p>
+<p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210725092319.png" alt="QQ截图20210725092319"></p>
 <div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/23/AWD/">AWD攻防(持续) Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
  el: '#Valine'
  , appId: ''
