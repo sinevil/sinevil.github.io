@@ -6,7 +6,7 @@
   <link href="https://sinevil.github.io/atom.xml" rel="self"/>
   
   <link href="https://sinevil.github.io/"/>
-  <updated>2021-07-22T07:45:44.049Z</updated>
+  <updated>2021-07-25T02:29:09.065Z</updated>
   <id>https://sinevil.github.io/</id>
   
   <author>
@@ -15,6 +15,66 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Apache换行解析漏洞</title>
+    <link href="https://sinevil.github.io/2021/07/25/apachejiexi/"/>
+    <id>https://sinevil.github.io/2021/07/25/apachejiexi/</id>
+    <published>2021-07-25T01:29:31.000Z</published>
+    <updated>2021-07-25T02:29:09.065Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>Apache换行解析漏洞(CVE-2017-15715)</strong></p><ul><li>影响版本</li></ul><p>Apache httpd 2.4.0 ~ 2.4.29</p><ul><li>原理</li></ul><p>apache在修复第一个后缀名解析漏洞时，用正则表达式匹配后缀。在正则表示式中，<code>$</code>用来匹配字符串结尾位置，但如果设置了RegExp对象的Multiline属性，则$也匹配<code>\n</code>或者<code>\r</code>,</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#httpd解析php文件的表达式</span></span><br><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line"><span class="comment">#&lt;FilesMatch&gt; 中指定的表达式可以将“$”匹配到恶意文件名中的换行符，而不是仅匹配文件名的末尾。这可以在某些文件的上传被外部阻止的环境中被利用，但只能通过匹配文件名的尾随部分</span></span><br></pre></td></tr></table></figure><p>由于是黑名单匹配，所以我们的上传可以成功，并且在解析时会匹配换行符，我们访问时在php后加上%0a即可正常访问。</p><p><strong>漏洞复现</strong></p><ul><li>打开环境，可以清晰的发现是一个文件上传点，我们首先选择对其查看源码</li></ul><p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210723104444.png" alt="QQ截图20210723104444"></p><ul><li>源码中并无法确认是属于什么类型的文件上传，但是文件上传只是一个站的其中一个功能，选择对这个站进行信息搜集</li></ul><p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210725091747.png" alt="QQ截图20210725091747"></p><ul><li>发现其中间件有Apache，且Apache版本为2.4.10</li></ul><p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210725102727.png" alt="QQ截图20210725102727"></p><ul><li>搜寻到Apache的换行解析漏洞，通过bp抓包上传一个一句话的<code>.php</code>文件并在其后缀加上换行符</li></ul><p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210725092156.png" alt="QQ截图20210725092156"></p><ul><li>将其发包，通过phpinfo();函数判断其是否上传成功并获取shell</li></ul><p><img src="/2021/07/25/apachejiexi/%5Capachejiexi%5CQQ%E6%88%AA%E5%9B%BE20210725092319.png" alt="QQ截图20210725092319"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Apache换行解析漏洞(CVE-2017-15715)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;影响版本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Apache httpd 2.4.0 ~ 2.4.29&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;a</summary>
+      
+    
+    
+    
+    <category term="漏洞总结" scheme="https://sinevil.github.io/categories/%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="Apache" scheme="https://sinevil.github.io/tags/Apache/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWD攻防(持续)</title>
+    <link href="https://sinevil.github.io/2021/07/23/AWD/"/>
+    <id>https://sinevil.github.io/2021/07/23/AWD/</id>
+    <published>2021-07-23T10:34:04.000Z</published>
+    <updated>2021-07-23T11:00:33.680Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>第一次攻防实战</strong></p><ul><li>准备阶段，防御流程</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;第一次攻防实战&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;准备阶段，防御流程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=</summary>
+      
+    
+    
+    
+    <category term="实战" scheme="https://sinevil.github.io/categories/%E5%AE%9E%E6%88%98/"/>
+    
+    
+    <category term="AWD攻防" scheme="https://sinevil.github.io/tags/AWD%E6%94%BB%E9%98%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>PHP常用配置</title>
@@ -41,13 +101,13 @@
   </entry>
   
   <entry>
-    <title>文件上传漏洞</title>
+    <title>文件包含漏洞</title>
     <link href="https://sinevil.github.io/2021/07/20/wenjian/"/>
     <id>https://sinevil.github.io/2021/07/20/wenjian/</id>
     <published>2021-07-20T06:42:33.000Z</published>
-    <updated>2021-07-22T01:45:39.588Z</updated>
+    <updated>2021-07-25T01:28:04.220Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>文件包含漏洞</strong></p><ul><li>原理</li></ul><p>服务器执行代码时，可以通过文件包含函数加载另一个文件的代码，当被包含文件的代码中存在恶意代码时，也会将其解析并且执行，且该漏洞不只是出现在php语言中，还有其他语言，例如，jsp，asp。</p><ul><li>漏洞产生原因</li></ul><p>没有对文件包含的参数进行过滤或者严格的定义，并且参数可以被用户控制</p><ul><li>危害</li></ul><p>服务器的网页被篡改，网站被挂马，服务器被远端控制，被安装后门</p><ul><li>php中的常见函数</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">include  <span class="comment">#包含并且运行指定文件，include在出错时产生警告(E_WARNING)，脚本会继续运行</span></span><br><span class="line">include_once  <span class="comment">#在脚本执行期间包含并运行指定文件。该函数和include函数类似，两者唯一的区别是使用该函数时，php会检查指定文件是否已经被包含过，如果是，则不会再次包含</span></span><br><span class="line">require  <span class="comment">#包含并且运行指定文件，require在出错时产生E_COMPILE_ERROR级别的错误，导致脚本中止运行</span></span><br><span class="line">require_once  <span class="comment">#类似于include_once的require</span></span><br></pre></td></tr></table></figure><p><strong>无限制本地文件包含漏洞</strong></p><ul><li>定义</li></ul><p>无限制本地文件包含漏洞是指代码中没有为包含文件指定特定的前缀或者扩展名，因此攻击者可以利用文件包含漏洞读取操作系统中的其他文件，获取敏感信息，或者执行其他文件中的代码</p><ul><li>常见的敏感信息路径</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Windows系统常见敏感文件</span><br><span class="line">C: \boot.ini          <span class="comment">#系统版本信息</span></span><br><span class="line">C: \xxx\php.ini       <span class="comment">#PHP配置信息</span></span><br><span class="line">C: \xxx\my.ini        <span class="comment">#MySQL配置信息</span></span><br><span class="line">C: \xxx\httpd.conf    <span class="comment">#Apache配置信息</span></span><br><span class="line">Linux系统常见敏感文件</span><br><span class="line">/etc/passwd                  <span class="comment">#Linux系统账号信息</span></span><br><span class="line">/etc/httpd/conf/httpd,conf   <span class="comment">#Apache配置信息</span></span><br><span class="line">/etc/my.conf                 <span class="comment">#MySQL配置信息</span></span><br><span class="line">/usr/etx/php.ini             <span class="comment">#PHP配置信息</span></span><br></pre></td></tr></table></figure><ul><li></li></ul>]]></content>
+    <content type="html"><![CDATA[<p><strong>文件包含漏洞</strong></p><ul><li>原理</li></ul><p>服务器执行代码时，可以通过文件包含函数加载另一个文件的代码，当被包含文件的代码中存在恶意代码时，也会将其解析并且执行，且该漏洞不只是出现在php语言中，还有其他语言，例如，jsp，asp。</p><ul><li>漏洞产生原因</li></ul><p>没有对文件包含的参数进行过滤或者严格的定义，并且参数可以被用户控制</p><ul><li>危害</li></ul><p>服务器的网页被篡改，网站被挂马，服务器被远端控制，被安装后门</p><ul><li>php中的常见函数</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">include  <span class="comment">#包含并且运行指定文件，include在出错时产生警告(E_WARNING)，脚本会继续运行</span></span><br><span class="line">include_once  <span class="comment">#在脚本执行期间包含并运行指定文件。该函数和include函数类似，两者唯一的区别是使用该函数时，php会检查指定文件是否已经被包含过，如果是，则不会再次包含</span></span><br><span class="line">require  <span class="comment">#包含并且运行指定文件，require在出错时产生E_COMPILE_ERROR级别的错误，导致脚本中止运行</span></span><br><span class="line">require_once  <span class="comment">#类似于include_once的require</span></span><br></pre></td></tr></table></figure><p><strong>本地文件包含漏洞</strong></p><ul><li>无限制本地文件包含</li></ul><p>无限制本地文件包含漏洞是指代码中没有为包含文件指定特定的前缀或者扩展名，因此攻击者可以利用文件包含漏洞读取操作系统中的其他文件，获取敏感信息，或者执行其他文件中的代码</p><ul><li>常见的敏感信息路径</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Windows系统常见敏感文件</span><br><span class="line">C: \boot.ini          <span class="comment">#系统版本信息</span></span><br><span class="line">C: \xxx\php.ini       <span class="comment">#PHP配置信息</span></span><br><span class="line">C: \xxx\my.ini        <span class="comment">#MySQL配置信息</span></span><br><span class="line">C: \xxx\httpd.conf    <span class="comment">#Apache配置信息</span></span><br><span class="line">Linux系统常见敏感文件</span><br><span class="line">/etc/passwd                  <span class="comment">#Linux系统账号信息</span></span><br><span class="line">/etc/httpd/conf/httpd,conf   <span class="comment">#Apache配置信息</span></span><br><span class="line">/etc/my.conf                 <span class="comment">#MySQL配置信息</span></span><br><span class="line">/usr/etx/php.ini             <span class="comment">#PHP配置信息</span></span><br></pre></td></tr></table></figure><ul><li> 漏洞利用</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">漏洞代码示例：</span><br><span class="line">&lt;?php</span><br><span class="line">  <span class="variable">$filename</span>=<span class="variable">$GET_</span>[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line">  include(<span class="variable">$filename</span>);</span><br><span class="line">?&gt;  </span><br><span class="line">读取文件内容：</span><br><span class="line">目录遍历后获取路径，获取的系统中文件内容</span><br><span class="line">htt://www. . /xxx.php?filename=../../../../../../../路径</span><br><span class="line">执行代码：</span><br><span class="line">利用无限制本地文件包含漏洞，可以通过文件包含功能执行任意扩展名的文件中的代码</span><br><span class="line">http://路径/xxx.php?filename=文件</span><br></pre></td></tr></table></figure><ul><li>有限制本地文件包含</li></ul><p>有限制本地文件上传包含漏洞是指代码中为包含文件指定了特定的前缀或者<code>.php .html</code>等扩展名，攻击者需要绕过前缀或者扩展名过滤，才能利用文件包含漏洞读取操作系统中的其他文件，获取敏感信息，常见的有限制本地文件包含过滤绕过的方式主要有%00截断，路径长度截断，点号截断文件包含这三种</p><ul><li>%00截断文件包含</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">漏洞条件利用条件：</span><br><span class="line">magic_quotes_gpc=off</span><br><span class="line">PHP版本低于5.3.4</span><br><span class="line">漏洞代码示例</span><br><span class="line">&lt;?php</span><br><span class="line">  <span class="variable">$filename</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;filenmae&#x27;</span>];</span><br><span class="line">  include(<span class="variable">$filename</span>.<span class="string">&quot;.html&quot;</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
@@ -126,7 +186,7 @@
     <link href="https://sinevil.github.io/2021/07/15/tomcat/"/>
     <id>https://sinevil.github.io/2021/07/15/tomcat/</id>
     <published>2021-07-15T07:58:00.000Z</published>
-    <updated>2021-07-18T08:26:55.993Z</updated>
+    <updated>2021-07-25T01:31:17.951Z</updated>
     
     <content type="html"><![CDATA[<ul><li> 打开网页获取有效信息，Apache Tomcat/8.0.43及其醒目，猜测为一款软件以及他的版本号</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210716090825.png" alt="QQ截图20210716090825"></p><ul><li>不晓得tomca是什么，百度一波</li></ul><p>Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p><ul><li>因为要渗透该靶场，所以查看一下comcat的目录情况，深入了解comcat的信息</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/bin  <span class="comment">#二进制文件</span></span><br><span class="line"> startup.bat      <span class="comment">#启动tomcat服务</span></span><br><span class="line"> shutdown.bat     <span class="comment">#关闭tomcat服务</span></span><br><span class="line">/conf  <span class="comment">#配置文件 </span></span><br><span class="line"> sever.xml        <span class="comment">#定义了tomcat启动时涉及的组件属性</span></span><br><span class="line"> tomcat-users.xml <span class="comment">#tomcat的用户密码和权限</span></span><br><span class="line"> web.xml          <span class="comment">#定义servlet </span></span><br><span class="line">/lib   <span class="comment">#存放全局的jar包</span></span><br><span class="line">/logs  <span class="comment">#日志</span></span><br><span class="line">/temp  <span class="comment">#临时文件</span></span><br><span class="line">/webapps  <span class="comment">#存放JAVA的WEB项目            </span></span><br><span class="line">        /manager  <span class="comment">#后台登录界面</span></span><br><span class="line">        /ROOT     <span class="comment">#根目录</span></span><br><span class="line">/work  <span class="comment">#存放jsp编译后产生的class文件</span></span><br></pre></td></tr></table></figure><ul><li>comcat有一个后台登录界面，我们尝试访问一下，弹出登录框，我们首先想到爆破，但是可以先搜索一下comcat有哪些漏洞可以利用</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715163504.png" alt="QQ截图20210715163504"></p><ul><li>直接搜一波tomcat的漏洞</li></ul><p><del><strong>CVE-2017-12615</strong></del></p><p><del><strong>影响版本</strong>：Tomcat 7.0.0 ～ 7.0.79</del></p><p><del><strong>影响说明</strong>：上传webshell，任意命令执行</del></p><blockquote><p>该漏洞与提供的靶场版本不符</p></blockquote><p><del><strong>CVE-2020-1938</strong></del></p><p><del><strong>影响版本</strong>:</del></p><p><del>Apache Tomcat 9.x &lt; 9.0.31</del></p><p><del>Apache Tomcat 8.x &lt; 8.5.51</del></p><p><del>Apache Tomcat 7.x &lt; 7.0.100</del> </p><p><del>Apache Tomcat 6.x</del></p><p><del><strong>影响说明</strong>：读取webapp下的所有文件</del></p><blockquote><p>未尝试</p></blockquote><p><strong>弱口令</strong></p><p><strong>影响版本</strong>：全版本</p><p><strong>环境说明</strong>：后台上传文件，getshell</p><ul><li><p>因为存在后台登录界面，介于自锁功能已经关闭，利用弱密码漏洞进行爆破</p><p>msf自带针对tomcat弱密码的爆破功能，在修改字典文档后进行爆破，得到tomcat的账号以及密码</p></li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715145404.png" alt="QQ截图20210715145404"></p><ul><li>进入tomcat的后台，发现文件上传点</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715153939.png" alt="QQ截图20210715153939"></p><ul><li>标识需要上传一个<code>.war</code>文件，将冰蝎自配的<code>.jsp</code>打包成<code>.war</code>文件后上传，上传成功</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154059.png" alt="QQ截图20210715154059"></p><ul><li>再用连接冰蝎，获取shell，寻找flag</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154414.png" alt="QQ截图20210715154414"></p><ul><li>在根目录下找到一个flag文件，但是flag信息为fake flag，查看主机系统为liunx，使用find命令查询所有带flag文件，最后发现只有一个flag文件，在根目录下，判断为所找的flag</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154747.png" alt="QQ截图20210715154747"></p>]]></content>
     
@@ -141,7 +201,7 @@
     
     
     
-    <category term="渗透实战" scheme="https://sinevil.github.io/categories/%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/"/>
+    <category term="漏洞总结" scheme="https://sinevil.github.io/categories/%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"/>
     
     
     <category term="tomcat" scheme="https://sinevil.github.io/tags/tomcat/"/>
