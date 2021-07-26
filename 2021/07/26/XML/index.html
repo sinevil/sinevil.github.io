@@ -29,8 +29,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!DOCTYPE Anything [
+
 <!ENTITY entityex SYSTEM "file:///etc/passwd">
-<p>]&gt;<br><abc>&entityex;</abc></p>
+
+<p>]&gt;</p>
+<p><abc>&entityex;</abc></p>
 <p>在上面的代码中， XML外部实体 ‘entityex’ 被赋予的值为：file://etc/passwd。在解析XML文档的过程中，实体’entityex’的值会被替换为URI(file://etc/passwd)内容值（也就是passwd文件的内容）。 关键字’SYSTEM’会告诉XML解析器，’entityex’实体的值将从其后的URI中读取，并把读取的内容替换entityex出现的地方。</p>
 <p>　　假如 SYSTEM 后面的内容可以被用户控制，那么用户就可以随意替换为其他内容，从而读取服务器本地文件（file:///etc/passwd)或者远程文件（<a target="_blank" rel="noopener" href="http://www.baidu.com/abc.txt%EF%BC%89">http://www.baidu.com/abc.txt）</a></p>
 <div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/26/XXE/">XXE漏洞 Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
