@@ -6,7 +6,7 @@
   <link href="https://sinevil.github.io/atom.xml" rel="self"/>
   
   <link href="https://sinevil.github.io/"/>
-  <updated>2021-07-25T02:34:18.484Z</updated>
+  <updated>2021-07-26T08:42:31.823Z</updated>
   <id>https://sinevil.github.io/</id>
   
   <author>
@@ -15,6 +15,63 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>XML</title>
+    <link href="https://sinevil.github.io/2021/07/26/XML/"/>
+    <id>https://sinevil.github.io/2021/07/26/XML/</id>
+    <published>2021-07-26T08:33:08.000Z</published>
+    <updated>2021-07-26T08:42:31.823Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>XML</strong></p><ul><li>什么是XML</li></ul><p>XML是一种可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。它被设计用来传输和存储数据(而不是储存数据),可扩展标记语言是一种很像超文本标记语言的标记语言。它的设计宗旨是传输数据，而不是显示数据。它的标签没有被预定义。您需要自行定义标签。它被设计为具有自我描述性。它是W3C的推荐标准</p><ul><li>XML的组成</li></ul><p>XML由3个部分构成，它们分别是：文档类型定义（Document Type Definition，DTD），即XML的布局语言；可扩展的样式语言（Extensible Style Language，XSL），即XML的样式表语言；以及可扩展链接语言（Extensible Link Language，XLL）</p><ul><li>XML的作用</li></ul><p>XML使用元素和属性来描述数 据。在数据传送过程中，XML始终保留了诸如父/子关系这样的数据结构。几个应用程序 可以共享和解析同一个XML文件，不必使用传统的字符串解析或拆解过程。 相反，普通文件不对每个数据段做描述(除了在头文件中)，也不保留数据关系结构。使用XML做数据交换可以使应用程序更具有弹性，因为可以用位置(与普通文件一样)或用元素名(从数据库)来存取XML数据</p><ul><li>外部实体</li></ul><p>外部实体表示外部文件的内容，用 SYSTEM 关键词表示。</p><!ENTITY test SYSTEM "1.xml"><p>有些XML文档包含system标识符定义的“实体”，这些文档会在DOCTYPE头部标签中呈现。这些定义的’实体’能够访问本地或者远程的内容。比如，下面的XML文档样例就包含了XML ‘实体’。</p><?xml version="1.0" encoding="utf-8"?><!DOCTYPE Anything [<!ENTITY entityex SYSTEM "file:///etc/passwd"><p>]&gt;<br><abc>&entityex;</abc></p><p>在上面的代码中， XML外部实体 ‘entityex’ 被赋予的值为：file://etc/passwd。在解析XML文档的过程中，实体’entityex’的值会被替换为URI(file://etc/passwd)内容值（也就是passwd文件的内容）。 关键字’SYSTEM’会告诉XML解析器，’entityex’实体的值将从其后的URI中读取，并把读取的内容替换entityex出现的地方。</p><p>　　假如 SYSTEM 后面的内容可以被用户控制，那么用户就可以随意替换为其他内容，从而读取服务器本地文件（file:///etc/passwd)或者远程文件（<a href="http://www.baidu.com/abc.txt%EF%BC%89">http://www.baidu.com/abc.txt）</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;XML&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;什么是XML&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;XML是一种可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。它被设计用来传输和存储数据(而不是储存数据),可扩展标记语言是一</summary>
+      
+    
+    
+    
+    <category term="web基础" scheme="https://sinevil.github.io/categories/web%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="语言" scheme="https://sinevil.github.io/tags/%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XXE漏洞</title>
+    <link href="https://sinevil.github.io/2021/07/26/XXE/"/>
+    <id>https://sinevil.github.io/2021/07/26/XXE/</id>
+    <published>2021-07-26T08:23:26.000Z</published>
+    <updated>2021-07-26T08:32:47.466Z</updated>
+    
+    <content type="html"><![CDATA[<p>s</p><p><strong>XXE漏洞</strong></p><ul><li>什么是XXE漏洞</li></ul><p>XML外部实体注入简称XXE漏洞，如果XML文件在引用外部实体的时，可以沟通构造恶意内容，可以导致读取任意文件，命令执行和内网的攻击。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;s&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;XXE漏洞&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;什么是XXE漏洞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;XML外部实体注入简称XXE漏洞，如果XML文件在引用外部实体的时，可以沟通构造恶意内容，可以导致读取任意文件，命令执行和内网的攻击。&lt;/</summary>
+      
+    
+    
+    
+    <category term="漏洞总结" scheme="https://sinevil.github.io/categories/%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="XXE" scheme="https://sinevil.github.io/tags/XXE/"/>
+    
+  </entry>
   
   <entry>
     <title>Apache换行解析漏洞</title>
