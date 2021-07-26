@@ -10,32 +10,17 @@
 <ul>
 <li>什么是XML</li>
 </ul>
-<p>XML是一种可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。它被设计用来传输和存储数据(而不是储存数据),可扩展标记语言是一种很像超文本标记语言的标记语言。它的设计宗旨是传输数据，而不是显示数据。它的标签没有被预定义。您需要自行定义标签。它被设计为具有自我描述性。它是W3C的推荐标准</p>
+<p>XML是一种可扩展标记 ，用来结构化、储存以及传输信息</p>
 <ul>
 <li>XML的组成</li>
 </ul>
-<p>XML由3个部分构成，它们分别是：文档类型定义（Document Type Definition，DTD），即XML的布局语言；可扩展的样式语言（Extensible Style Language，XSL），即XML的样式表语言；以及可扩展链接语言（Extensible Link Language，XLL）</p>
+<p>XML由3个部分构成，它们分别是：XML声明，文档类型定义，文档元素</p>
 <ul>
-<li>XML的作用</li>
+<li>XML实例</li>
 </ul>
-<p>XML使用元素和属性来描述数 据。在数据传送过程中，XML始终保留了诸如父/子关系这样的数据结构。几个应用程序 可以共享和解析同一个XML文件，不必使用传统的字符串解析或拆解过程。 相反，普通文件不对每个数据段做描述(除了在头文件中)，也不保留数据关系结构。使用XML做数据交换可以使应用程序更具有弹性，因为可以用位置(与普通文件一样)或用元素名(从数据库)来存取XML数据</p>
-<ul>
-<li>外部实体</li>
-</ul>
-<p>外部实体表示外部文件的内容，用 SYSTEM 关键词表示。</p>
-<!ENTITY test SYSTEM "1.xml">
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--XML声明(定义了XML的版本和编码)--&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot;encoding=&quot;ISO-8859-1&quot;?&gt;</span>  #XML声明以&lt;?开头，以?&gt;结尾。version属性是必选的，他定义了XML的版本，encoding的属性是可选的。定义了XML进行解码所用的字符集</span><br><span class="line"><span class="comment">&lt;!--文档类型定义--&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCYTPE <span class="meta-keyword">note</span> [</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="meta-keyword">note</span> (<span class="meta-keyword">to</span>,<span class="meta-keyword">from</span>,<span class="meta-keyword">heading</span>,<span class="meta-keyword">body</span>)</span></span></span><br><span class="line"><span class="meta"><span class="meta">  &lt;!ELEMRNT <span class="meta-keyword">to</span> (<span class="meta-keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMRNT <span class="meta-keyword">from</span> (<span class="meta-keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMRNT <span class="meta-keyword">heading</span> (<span class="meta-keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMRNT <span class="meta-keyword">body</span> (<span class="meta-keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!--文档元素--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">to</span>&gt;</span>George<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">from</span>&gt;</span>John<span class="tag">&lt;/<span class="name">from</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>Don&#x27;t forget the meeting<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>有些XML文档包含system标识符定义的“实体”，这些文档会在DOCTYPE头部标签中呈现。这些定义的’实体’能够访问本地或者远程的内容。比如，下面的XML文档样例就包含了XML ‘实体’。</p>
-<?xml version="1.0" encoding="utf-8"?>
-
-<!DOCTYPE Anything [
-
-<!ENTITY entityex SYSTEM "file:///etc/passwd">
-
-<p>]&gt;</p>
-<p><abc>&entityex;</abc></p>
-<p>在上面的代码中， XML外部实体 ‘entityex’ 被赋予的值为：file://etc/passwd。在解析XML文档的过程中，实体’entityex’的值会被替换为URI(file://etc/passwd)内容值（也就是passwd文件的内容）。 关键字’SYSTEM’会告诉XML解析器，’entityex’实体的值将从其后的URI中读取，并把读取的内容替换entityex出现的地方。</p>
-<p>　　假如 SYSTEM 后面的内容可以被用户控制，那么用户就可以随意替换为其他内容，从而读取服务器本地文件（file:///etc/passwd)或者远程文件（<a target="_blank" rel="noopener" href="http://www.baidu.com/abc.txt%EF%BC%89">http://www.baidu.com/abc.txt）</a></p>
+<p>* </p>
 <div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/26/XXE/">XXE漏洞 Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
  el: '#Valine'
  , appId: ''
