@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sinevil.github.io/2021/07/26/XXE/</loc>
+    
+    <lastmod>2021-07-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sinevil.github.io/2021/07/19/yijuhua/</loc>
+    
+    <lastmod>2021-07-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://sinevil.github.io/2021/07/26/XML/</loc>
     
     <lastmod>2021-07-26</lastmod>
@@ -9,7 +23,7 @@
   </url>
   
   <url>
-    <loc>https://sinevil.github.io/2021/07/26/XXE/</loc>
+    <loc>https://sinevil.github.io/2021/07/22/phppeizhi/</loc>
     
     <lastmod>2021-07-26</lastmod>
     
@@ -44,20 +58,6 @@
   </url>
   
   <url>
-    <loc>https://sinevil.github.io/2021/07/22/phppeizhi/</loc>
-    
-    <lastmod>2021-07-22</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://sinevil.github.io/2021/07/19/yijuhua/</loc>
-    
-    <lastmod>2021-07-19</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://sinevil.github.io/schedule/index.html</loc>
     
     <lastmod>2021-07-19</lastmod>
@@ -81,13 +81,6 @@
 
   
   <url>
-    <loc>https://sinevil.github.io/tags/AWD%E6%94%BB%E9%98%B2/</loc>
-    <lastmod>2021-07-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://sinevil.github.io/tags/%E6%96%87%E6%9C%AC%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2021-07-26</lastmod>
     <changefreq>daily</changefreq>
@@ -95,21 +88,21 @@
   </url>
   
   <url>
+    <loc>https://sinevil.github.io/tags/AWD%E6%94%BB%E9%98%B2/</loc>
+    <lastmod>2021-07-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sinevil.github.io/tags/XML/</loc>
+    <lastmod>2021-07-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://sinevil.github.io/tags/Apache/</loc>
-    <lastmod>2021-07-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sinevil.github.io/tags/XXE/</loc>
-    <lastmod>2021-07-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sinevil.github.io/tags/PHP/</loc>
     <lastmod>2021-07-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -136,24 +129,17 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://sinevil.github.io/tags/Webshell/</loc>
-    <lastmod>2021-07-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   
   <url>
-    <loc>https://sinevil.github.io/categories/%E5%AE%9E%E6%88%98/</loc>
+    <loc>https://sinevil.github.io/categories/web%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2021-07-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://sinevil.github.io/categories/web%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://sinevil.github.io/categories/%E5%AE%9E%E6%88%98/</loc>
     <lastmod>2021-07-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

