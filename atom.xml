@@ -6,7 +6,7 @@
   <link href="https://sinevil.github.io/atom.xml" rel="self"/>
   
   <link href="https://sinevil.github.io/"/>
-  <updated>2021-07-27T01:21:18.100Z</updated>
+  <updated>2021-07-27T02:11:08.930Z</updated>
   <id>https://sinevil.github.io/</id>
   
   <author>
@@ -17,15 +17,29 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>fanxuhua</title>
+    <title>反序列化漏洞</title>
     <link href="https://sinevil.github.io/2021/07/27/fanxuhua/"/>
     <id>https://sinevil.github.io/2021/07/27/fanxuhua/</id>
     <published>2021-07-27T01:21:18.000Z</published>
-    <updated>2021-07-27T01:21:18.100Z</updated>
+    <updated>2021-07-27T02:11:08.930Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>序列化和反序列化</strong></p><p>为了有效地储存或传递数据，同时不丢失其类型和结构，经常需要利用序列化和反序列化函数对数据进行处理</p><p>序列化函数返回字符串，此字符串包含了表达值的字节流，可以储存在任何地方</p><p>反序列化函数对单一的已序列化的变量进行操作，将其转换为原来的值</p><p>这两个过程结合起来可以轻松的储存和传输数据，使程序更具维护性</p><p><strong>序列化</strong></p><ul><li>serialize函数</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;序列化和反序列化&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;为了有效地储存或传递数据，同时不丢失其类型和结构，经常需要利用序列化和反序列化函数对数据进行处理&lt;/p&gt;
+&lt;p&gt;序列化函数返回字符串，此字符串包含了表达值的字节流，可以储存在任何地方&lt;/p&gt;
+&lt;p&gt;反序列化函</summary>
+      
     
     
     
+    <category term="漏洞总结" scheme="https://sinevil.github.io/categories/%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"/>
     
+    
+    <category term="注入类漏洞" scheme="https://sinevil.github.io/tags/%E6%B3%A8%E5%85%A5%E7%B1%BB%E6%BC%8F%E6%B4%9E/"/>
     
   </entry>
   
