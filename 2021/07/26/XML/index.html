@@ -10,7 +10,7 @@
 <ul>
 <li>什么是XML</li>
 </ul>
-<p>XML是一种可扩展标记 ，用来结构化、储存以及传输信息</p>
+<p>XML是一种可扩展标记语言 ，用来结构化、储存以及传输信息</p>
 <ul>
 <li>XML的组成</li>
 </ul>
@@ -18,7 +18,7 @@
 <ul>
 <li>XML实例</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--XML声明(定义了XML的版本和编码)--&gt;</span><br><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>encoding=<span class="string">&quot;ISO-8859-1&quot;</span>?&gt;  </span><br><span class="line">&lt;!--文档类型定义--&gt;</span><br><span class="line">&lt;!DOCYTPE note [</span><br><span class="line">  &lt;!ELEMENT note (to,from,heading,body)</span><br><span class="line">  &lt;!ELEMRNT to (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">  &lt;!ELEMRNT from (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">  &lt;!ELEMRNT heading (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">  &lt;!ELEMRNT body (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">]&gt;  </span><br><span class="line">&lt;!--文档元素--&gt;</span><br><span class="line">&lt;note&gt;</span><br><span class="line">&lt;to&gt;George&lt;/to&gt;</span><br><span class="line">&lt;from&gt;John&lt;/from&gt;    </span><br><span class="line">&lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">&lt;body&gt;Don<span class="string">&#x27;t forget the meeting&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/note&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--XML声明(定义了XML的版本和编码)--&gt;</span><br><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>encoding=<span class="string">&quot;ISO-8859-1&quot;</span>?&gt;  </span><br><span class="line">&lt;!--文档类型定义--&gt;(DTD)</span><br><span class="line">&lt;!DOCYTPE note [</span><br><span class="line">  &lt;!ELEMENT note (to,from,heading,body)</span><br><span class="line">  &lt;!ELEMRNT to (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">  &lt;!ELEMRNT from (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">  &lt;!ELEMRNT heading (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">  &lt;!ELEMRNT body (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">]&gt;  </span><br><span class="line">&lt;!--文档元素--&gt;</span><br><span class="line">&lt;note&gt;</span><br><span class="line">&lt;to&gt;George&lt;/to&gt;</span><br><span class="line">&lt;from&gt;John&lt;/from&gt;    </span><br><span class="line">&lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">&lt;body&gt;Don<span class="string">&#x27;t forget the meeting&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/note&gt;</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>XML声明</li>
@@ -31,7 +31,14 @@
 <ol>
 <li>文档类型定义的基础语法</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE 根元素 [元素声明]&gt;</span><br><span class="line"></span><br><span class="line">2. wai对文档类型定义直接放在XML文档中，称为内部定义。</span><br><span class="line"></span><br><span class="line">​```bash</span><br><span class="line">&lt;!DOCYTPE note [  <span class="comment">#定义此文档的类型</span></span><br><span class="line">  &lt;!ELEMENT note (to,from,heading,body)  <span class="comment">#定义note的四个元素</span></span><br><span class="line">  &lt;!ELEMRNT to (<span class="comment">#PCDATA)&gt;  #定义元素类型</span></span><br><span class="line">  &lt;!ELEMRNT from (<span class="comment">#PCDATA)&gt;  </span></span><br><span class="line">  &lt;!ELEMRNT heading (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">  &lt;!ELEMRNT body (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">]&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE 根元素 [元素声明]&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li> 对文档类型定义直接放在XML文档中，称为内部定义。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCYTPE note [  <span class="comment">#定义此文档的类型</span></span><br><span class="line">  &lt;!ELEMENT note (to,from,heading,body)  <span class="comment">#定义note的四个元素</span></span><br><span class="line">  &lt;!ELEMRNT to (<span class="comment">#PCDATA)&gt;  #定义元素类型</span></span><br><span class="line">  &lt;!ELEMRNT from (<span class="comment">#PCDATA)&gt;  </span></span><br><span class="line">  &lt;!ELEMRNT heading (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">  &lt;!ELEMRNT body (<span class="comment">#PCDATA)&gt;</span></span><br><span class="line">]&gt;</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>外部文档引用</li>
@@ -39,9 +46,11 @@
 <p>文档类型定义的内容也可以单独保存为单独的DTD文档</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#DTD引用本地文档</span></span><br><span class="line">&lt;!DOCTYPE 根元素 SYSTEM “文件名“&gt;</span><br><span class="line"><span class="comment">#DTD引用公共网络上的DTD</span></span><br><span class="line">&lt;!DOCTYPE 根元素 PUBLIC <span class="string">&quot;DTD名称&quot;</span> <span class="string">&quot;DTD文档的URL&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
-
-
-<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/27/fanxuhua/">← Prev PHP反序列化漏洞</a><span style="color: #fe2"> | </span><a href="/2021/07/26/XXE/">XXE Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+<blockquote>
+<p>DTD(文档类型定义)的作用是定义XML文档的合法构建模块，DTD可以在内部声明，也可以外部声明</p>
+<p>DTD实体是用于定义引用普通文本或特殊字符的快捷方式的变量，可以内部声明或外部引用</p>
+</blockquote>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/27/fanxuhua/">← Prev PHP反序列化漏洞(停制)</a><span style="color: #fe2"> | </span><a href="/2021/07/26/XXE/">XXE Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
  el: '#Valine'
  , appId: ''
  , appKey: ''
