@@ -11,16 +11,16 @@
 </ul>
 <p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210716090825.png" alt="QQ截图20210716090825"></p>
 <ul>
-<li>不晓得tomca是什么，百度一波</li>
+<li>不晓得tomcat是什么，百度一波</li>
 </ul>
 <p>Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p>
 <ul>
-<li>因为要渗透该靶场，所以查看一下comcat的目录情况，深入了解comcat的信息</li>
+<li>因为要渗透该靶场，所以查看一下tomcat的目录情况，深入了解tomcat的信息</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/bin  <span class="comment">#二进制文件</span></span><br><span class="line"> startup.bat      <span class="comment">#启动tomcat服务</span></span><br><span class="line"> shutdown.bat     <span class="comment">#关闭tomcat服务</span></span><br><span class="line">/conf  <span class="comment">#配置文件 </span></span><br><span class="line"> sever.xml        <span class="comment">#定义了tomcat启动时涉及的组件属性</span></span><br><span class="line"> tomcat-users.xml <span class="comment">#tomcat的用户密码和权限</span></span><br><span class="line"> web.xml          <span class="comment">#定义servlet </span></span><br><span class="line">/lib   <span class="comment">#存放全局的jar包</span></span><br><span class="line">/logs  <span class="comment">#日志</span></span><br><span class="line">/temp  <span class="comment">#临时文件</span></span><br><span class="line">/webapps  <span class="comment">#存放JAVA的WEB项目            </span></span><br><span class="line">        /manager  <span class="comment">#后台登录界面</span></span><br><span class="line">        /ROOT     <span class="comment">#根目录</span></span><br><span class="line">/work  <span class="comment">#存放jsp编译后产生的class文件</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>comcat有一个后台登录界面，我们尝试访问一下，弹出登录框，我们首先想到爆破，但是可以先搜索一下comcat有哪些漏洞可以利用</li>
+<li>tomcat有一个后台登录界面，我们尝试访问一下，弹出登录框，我们首先想到爆破，但是可以先搜索一下tomcat有哪些漏洞可以利用</li>
 </ul>
 <p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715163504.png" alt="QQ截图20210715163504"></p>
 <ul>
