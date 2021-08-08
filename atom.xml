@@ -6,7 +6,7 @@
   <link href="https://sinevil.github.io/atom.xml" rel="self"/>
   
   <link href="https://sinevil.github.io/"/>
-  <updated>2021-08-03T06:28:49.752Z</updated>
+  <updated>2021-08-08T11:09:37.730Z</updated>
   <id>https://sinevil.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>phpinfo()中的敏感信息</title>
+    <link href="https://sinevil.github.io/2021/08/08/phpinfo/"/>
+    <id>https://sinevil.github.io/2021/08/08/phpinfo/</id>
+    <published>2021-08-08T10:54:55.000Z</published>
+    <updated>2021-08-08T11:09:37.730Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#phpinfo()中的敏感信息</span></span><br><span class="line"><span class="comment">#绝对路径</span></span><br><span class="line">(_SERVER[<span class="string">&quot;SCRIPT_FILENAME&quot;</span>])</span><br><span class="line"><span class="comment">#支持程序</span></span><br><span class="line">判断服务器是否加载了redis、memcache、mongodb、mysql、curl，如果加载了，那么就可以适当往这几个方面考虑，还可以看看是否支持gopher、是否启了fastcgi</span><br><span class="line"><span class="comment">#泄露真实ip</span></span><br><span class="line">(_SERVER[<span class="string">&quot;SCRIPT_FILENAME&quot;</span>])  SERVER_ADDR</span><br><span class="line"><span class="comment">#配置文件位置</span></span><br><span class="line">Loaded Configuration File</span><br><span class="line"><span class="comment">#敏感配置</span></span><br><span class="line">allow_url_include、allow_url_fopen、disable_functions、open_basedir、short_open_tag</span><br><span class="line"><span class="comment">#session</span></span><br><span class="line">session.save_path=”” –设置session的存储路径</span><br><span class="line">session.save_handler=”” –设定用户自定义存储函数，如果想使用PHP内置会话存储机制之外的可以使用本函数(数据库等方式)</span><br><span class="line">session.auto_start boolen –指定会话模块是否在请求开始时启动一个会话,默认为0不启动</span><br><span class="line">session.serialize_handler string –定义用来序列化/反序列化的处理器名字。默认使用php</span><br><span class="line"><span class="comment">#server api</span></span><br><span class="line">php解释器与应用层的桥梁。</span><br><span class="line">FPM/FastCGI 多用于和nginx通信，当然也可用于其他web中间件。</span><br><span class="line">Apache 2.0 Handler php为apache提供的专用SAPI</span><br><span class="line">Command Line Interface php命令行</span><br><span class="line"><span class="comment">#disable_functions</span></span><br><span class="line">有时候我们上传了一个webshell却不能用，有很大可能是管理员做了配置，禁用了php执行系统命令的函数</span><br><span class="line"><span class="comment">#open_basedir</span></span><br><span class="line">这个选项设置了文件读取的时候的目录限制</span><br><span class="line"><span class="comment">#enable_dll</span></span><br><span class="line">利用扩展库绕过disable_functions，需要使用dl()并且开启这个选项</span><br><span class="line"><span class="comment">#xdebug 远程rce</span></span><br><span class="line">漏洞利用条件：</span><br><span class="line">xdebug.remote_connect_back 的回连是通过自定义 Header（xdebug.remote_addr_header）、X-Forwarded-For 和 Remote-Addr 三个确定的，依次 fallback，所以即使配置了自定义 Header，也可以通过设置 XFF 头来指定服务器连接，就是让被调试的服务器去连接我们的恶意主机，此时我们的恶意主机就可以和目标服务器进行交互，并且因为是xdebug是支持dbgp的，所以可以此时让恶意主机发送恶意指令到目标服务器让其执行</span><br><span class="line"> 需要在目标站的phpinfo中看到：</span><br><span class="line">xdebug.remote_connect_back =&gt; On =&gt; On</span><br><span class="line">xdebug.remote_cookie_expire_time =&gt; 3600 =&gt; 3600</span><br><span class="line">xdebug.remote_enable =&gt; On =&gt; On</span><br><span class="line">即可使用Xdebug进行连接，尝试直接命令执行</span><br><span class="line"><span class="comment">#opcache</span></span><br><span class="line">opcache是缓存文件，他的作用就类似于web项目中的静态文件的缓存, 比如我们加载一个网页, 浏览器会自动帮我们把jpg, css缓存起来, 唯独php没有缓存, 每次均需要open文件, 解析代码, 执行代码这一过程, 而opcache即可解决这个问题, 代码会被高速缓存起来, 提升访问速度。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=</summary>
+      
+    
+    
+    
+    <category term="基础语言" scheme="https://sinevil.github.io/categories/%E5%9F%BA%E7%A1%80%E8%AF%AD%E8%A8%80/"/>
+    
+    
+    <category term="php" scheme="https://sinevil.github.io/tags/php/"/>
+    
+  </entry>
   
   <entry>
     <title>python</title>
