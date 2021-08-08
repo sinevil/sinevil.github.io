@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>命令执行漏洞 | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>命令执行漏洞</h1><hr></div><div id="post-content"><p><strong>命令执行漏洞</strong></p>
+<ul>
+<li>什么是命令执行漏洞</li>
+</ul>
+<p>应用程序有时需要调用一些执行系统命令的函数，如在PHP中，使用system、exec、shell_exec、passthru、popen、proc_popen等函数可以执行系统命令。当黑客能控制这些函数的参数时，就可以将恶意的系统命令拼接到正常命令中，从而造成命令执行攻击，这就是命令执行漏洞</p>
+<ul>
+<li>漏洞产生的原因</li>
+</ul>
+<p>(1):代码过滤不严或者无过滤。(没有过滤&amp;、&amp;&amp;、|、||等连接符)<br>(2):系统漏洞造成的命令执行，bash破壳漏洞，该漏洞可以构造环境变量的值来执行具有攻击力的脚本代码，会影响到bash交互的多种应用，如http、ssh和dhcp等。<br>(3):调用第三方组件，如php(system()、shell_exec()、exec()、eval())，java(struct2)，thinkphp(thinkphp是一个老牌的php)(比如一句话木马<?php @eval($_GET[cmd]); ?>)</p>
+<ul>
+<li>漏洞危害</li>
+</ul>
+<p>反弹shell</p>
+<p>执行系统命令，读写文档</p>
+<ul>
+<li>常用管道符</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Windows</span></span><br><span class="line"><span class="string">&quot;|&quot;</span>:无论前面的命令是否执行成功，直接执行后面的命令(并且只执行后面的命令，不显示前面的命令执行结果)。</span><br><span class="line"><span class="string">&quot;||&quot;</span>:如果前面的命令执行成功，则不执行后面的命令；如果前面的命令执行失败，则会执行后面的命令。</span><br><span class="line"><span class="string">&quot;&amp;&quot;</span>:如果前面的命令执行成功，则会接着去执行后面的语句；如果前面的语句执行失败，还会执行后面的语句。</span><br><span class="line"><span class="string">&quot;&amp;&amp;&quot;</span>:如果前面的命令执行成功，后面的命令也会执行；如果前面的命令执行失败，则会直接报错。</span><br><span class="line"><span class="comment">#Linux</span></span><br><span class="line"><span class="string">&quot;;&quot;</span>:执行完前面的命令再执行后面的命令。如果前面的命令执行成功，后面的命令也会执行；如果前面的命令执行失败，则会执行后面的命令。</span><br><span class="line"><span class="string">&quot;|&quot;</span>:无论前面的命令是否执行成功，直接执行后面的命令(并且只执行后面的命令，不显示前面的命令执行结果)。</span><br><span class="line"><span class="string">&quot;||&quot;</span>:如果前面的命令执行成功，则不执行后面的命令；如果前面的命令执行失败，则会执行后面的命令。</span><br><span class="line"><span class="string">&quot;&amp;&quot;</span>:如果前面的命令执行成功，则会接着去执行后面的语句；如果前面的语句执行失败，还会执行后面的语句。</span><br><span class="line"><span class="string">&quot;&amp;&amp;&quot;</span>:如果前面的命令执行成功，后面的命令也会执行；如果前面的命令执行失败，则会直接报错</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>常用指令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Windows</span></span><br><span class="line">dir----查看文件目录</span><br><span class="line">ipconfig----查看Windows的IP地址</span><br><span class="line">arp -a----查看ARP缓存表</span><br><span class="line">calc----在命令行打开计算器</span><br><span class="line">regedit----打开注册表</span><br><span class="line">netstat -ano----查看开放的端口信息</span><br><span class="line"><span class="comment">#Linux</span></span><br><span class="line">cat /etc/passwd----查看passwd文件</span><br><span class="line">id----查看该用户的ID号</span><br><span class="line">groups----查看用户所属的组</span><br><span class="line">cat /etc/group----查看组信息</span><br><span class="line">whoami----查看当前用户</span><br><span class="line"><span class="built_in">pwd</span>----查看当前路径</span><br><span class="line">uname -a----查看主机信息</span><br><span class="line">cat /etc/issue----查看主机的配置信息</span><br><span class="line">netstat -pantu----查看开放的端口信息</span><br><span class="line">netstat -nr----查看路由信息</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>绕过技巧</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#cat的绕过</span></span><br><span class="line">cat 由第一行开始显示内容，并将所有内容输出</span><br><span class="line">tac 从最后一行倒序显示内容，并将所有内容输出</span><br><span class="line">more 根据窗口大小，一页一页的现实文件内容</span><br><span class="line">less 和more类似，但其优点可以往前翻页，而且进行可以搜索字符</span><br><span class="line">head 只显示头几行</span><br><span class="line">tail 只显示最后几行</span><br><span class="line">nl 类似于cat -n，显示时输出行号</span><br><span class="line"></span><br><span class="line"><span class="comment">#绕过分隔符</span></span><br><span class="line">绕过分隔符: %0a换行符 %0d回车符 以及;(连续指令) &amp; | || &amp;&amp;</span><br><span class="line">在 shell 中，担任”连续指令”功能的符号就是”分号”</span><br><span class="line"></span><br><span class="line"><span class="comment">#绕过空格</span></span><br><span class="line">&lt; &lt;&gt;  <span class="variable">$&#123;IFS&#125;</span> $IFS<span class="variable">$9</span> </span><br><span class="line"><span class="variable">$IFS</span>在linux下表示分隔符，单纯的cat<span class="variable">$IFS</span>,bash解释器会把整个IFS当做变量名，所以导致输不出来结果，然而如果加一个&#123;&#125;就固定了变量名，同理在后面加个$可以起到截断的作用，但是为什么要用<span class="variable">$9</span>呢，因为<span class="variable">$9</span>只是当前系统shell进程的第九个参数的持有者，它始终为空字符串</span><br><span class="line"></span><br><span class="line"><span class="comment">#绕过黑名单单词：</span></span><br><span class="line"><span class="string">&#x27;  &#x27;</span><span class="string">&#x27; \ *(补全符) 以及通过base64转码绕过</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>范方法</li>
+</ul>
+<p>尽量少使用或禁用system，eval等执行命令的函数</p>
+<p>在执行命令函数之前，对参数进行过滤，对敏感字符进行转义</p>
+<p>参数值尽量用引号包括</p>
+<hr>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/07/23/daima/">← Prev 代码执行漏洞</a><span style="color: #fe2"> | </span><a href="/2021/07/22/phppeizhi/">PHP常用配置 Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: ''
+ , appKey: ''
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Mr.Li</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">14</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">8</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">5</span></div></section></div><div id="aside-block"></div><footer style="text-align: right"><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
