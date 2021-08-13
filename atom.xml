@@ -6,7 +6,7 @@
   <link href="https://sinevil.github.io/atom.xml" rel="self"/>
   
   <link href="https://sinevil.github.io/"/>
-  <updated>2021-08-13T03:29:04.550Z</updated>
+  <updated>2021-08-13T10:37:57.588Z</updated>
   <id>https://sinevil.github.io/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>OSI七层模型</title>
+    <link href="https://sinevil.github.io/2021/08/13/OSI/"/>
+    <id>https://sinevil.github.io/2021/08/13/OSI/</id>
+    <published>2021-08-13T07:04:22.000Z</published>
+    <updated>2021-08-13T10:37:57.588Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>OSI七层模型</strong></p><ul><li>什么是OSI七层模型</li></ul><p>OSI模型又称为开放式系统互联通信参考模型，该模型定义了网络互联的七层框架，物理层，数据链路层，网络层，传输层，会话层，表示层和应用层</p><ul><li>物理层（比特流传输）<ul><li>通过光缆，电缆，无线电波等方式将设备连接起来组网</li><li>两个不同区域局域网（移动，电信）通信，需要ISP互联网服务供应商的物理连接</li><li>作用：传输比特流 0和1（未涉及）</li><li>网络协议：IEE 802.1A ,IEE 802.2 到IEE 802.11</li></ul></li></ul><ul><li>数据链路层（控制网络层与物理层之间的通信）<ul><li>作用：根据以太网协议将一组电信号组成一个数据包，称作“帧”，并控制他的传输<ul><li>标头head ：标明数据发送者，接收者，数据类型</li><li>数据data</li></ul></li><li>MAC地址<ul><li>即网卡地址，每个网卡都是独一无二的12个16进制数<ul><li>前六个表示厂商，后六个表示流水号</li></ul></li><li>作用：定位数据包的路径，如发送者，接收者</li></ul></li><li>广播方式<ul><li>发送者把数据包发送给局域网内的所有PC端，让每个PC根据MAC地址自动匹配</li><li>发送媒介：分组交换机/网络交换机</li></ul></li><li>网络交换机<ul><li>扩展网络的机器</li><li>作用：为子网提供更多的接口，以及连接更多的PC</li></ul></li><li>网络协议：PDDI,Ethernet，Arpanet，PDN,SLIP,PPP</li></ul></li><li>网络层（IP寻址和路由选择）<ul><li>作用：建立主机-主机的连接</li><li>引入新的地址模式-IP地址/网络地址，可以区分哪些PC是在同一局域网内</li><li>IP类型分类<ul><li>IPv4：32个二进制，4字节*8位</li><li>IPv4：128个二进制，8字节*16位</li></ul></li><li>子网掩码<ul><li>通过and运算符判断是否在同一子网下 IP  and  255.255.255.0</li></ul></li><li>路由<ul><li>作用：通过网络把数据从原地址到目标地址，引导分组传送，经过一些中间节点后，到达目的地</li><li>实现方法：定义一条路径，经过因特网把包发送到目的地，但不指定完全路径，只定义两个网关之间的路径段</li><li>路由器：连接两个或多个网络并实现路由功能的机器，可看作配有多个网卡的专用电脑，让网卡插入不同的网络中</li><li>网关：网络层使用的路由器，通常指向路由IP</li><li>示例：A-发送地址 B-接收地址<ul><li>若在同一局域网，通过广播即可找到</li><li>若在不同局域网，A先将包根据网关添加路由器/主机地址，通过交换机的广播方式发给主机，A的主机将数据包传给B所在的主机，再由主机根据MAC广播给B完成（IP包不断被路由封装和拆开【添加/删除地址】）</li></ul></li><li>网络协议：IP, IMCP, WPR, RARP, AKP, UUCP </li></ul></li></ul></li><li>传输层（建立，维护，管理端到端连接）<ul><li>作用：建立端口-端口间的连接</li><li>端口号<ul><li>取值：0-65535<ul><li>0-1023 系统占用</li><li>应用程序随机抽取</li></ul></li><li>指定IP包具体给哪个进程；另外，一个进程可能与多个计算机连接，会有多个端口</li></ul></li><li>socket<ul><li>进程间通信：需要双方IP，端口号，通信采用的协议栈</li><li>格式： 无符号整形变量，用来表示一个通信进程</li><li>本质： 是编程接口API，对TCP/TP协议的封装</li></ul></li><li>网络协议：TCP, UDP</li></ul></li><li>会话层（建立，维护，管理会话连接）<ul><li>网路协议：SMTP, DNS</li></ul></li><li>表示层（数据格式化，加密，解密）<ul><li>网络协议：Telnet, Rlogin, SNMAP, Gopher</li></ul></li><li>应用层（为应用程序提供网络服务）<ul><li>网络协议：HTTP, TFTP, FTP, NFS, WAIS, SMTP</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;OSI七层模型&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;什么是OSI七层模型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OSI模型又称为开放式系统互联通信参考模型，该模型定义了网络互联的七层框架，物理层，数据链路层，网络层，传输层，会话层，表示层和应用层&lt;/p&gt;
+&lt;u</summary>
+      
+    
+    
+    
+    <category term="web基础" scheme="https://sinevil.github.io/categories/web%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="模型" scheme="https://sinevil.github.io/tags/%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ping</title>
+    <link href="https://sinevil.github.io/2021/08/13/ping/"/>
+    <id>https://sinevil.github.io/2021/08/13/ping/</id>
+    <published>2021-08-13T07:04:13.000Z</published>
+    <updated>2021-08-13T07:04:13.555Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>http状态码</title>
@@ -48,8 +90,8 @@
   
   <entry>
     <title>php伪协议</title>
-    <link href="https://sinevil.github.io/2021/08/13/phpwei/"/>
-    <id>https://sinevil.github.io/2021/08/13/phpwei/</id>
+    <link href="https://sinevil.github.io/2021/08/13/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/"/>
+    <id>https://sinevil.github.io/2021/08/13/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/</id>
     <published>2021-08-13T01:13:58.000Z</published>
     <updated>2021-08-13T02:51:32.846Z</updated>
     
@@ -100,8 +142,8 @@
   
   <entry>
     <title>php常见危险函数（持续）</title>
-    <link href="https://sinevil.github.io/2021/08/08/phpweixian/"/>
-    <id>https://sinevil.github.io/2021/08/08/phpweixian/</id>
+    <link href="https://sinevil.github.io/2021/08/08/php%E5%8D%B1%E9%99%A9%E5%87%BD%E6%95%B0/"/>
+    <id>https://sinevil.github.io/2021/08/08/php%E5%8D%B1%E9%99%A9%E5%87%BD%E6%95%B0/</id>
     <published>2021-08-08T11:12:26.000Z</published>
     <updated>2021-08-13T02:49:16.032Z</updated>
     
@@ -183,8 +225,8 @@
   
   <entry>
     <title>PHP反序列化漏洞(停制)</title>
-    <link href="https://sinevil.github.io/2021/07/27/fanxuhua/"/>
-    <id>https://sinevil.github.io/2021/07/27/fanxuhua/</id>
+    <link href="https://sinevil.github.io/2021/07/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    <id>https://sinevil.github.io/2021/07/27/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</id>
     <published>2021-07-27T01:21:18.000Z</published>
     <updated>2021-08-03T07:34:52.641Z</updated>
     
@@ -267,12 +309,12 @@
   
   <entry>
     <title>Apache换行解析漏洞</title>
-    <link href="https://sinevil.github.io/2021/07/25/apachejiexi/"/>
-    <id>https://sinevil.github.io/2021/07/25/apachejiexi/</id>
+    <link href="https://sinevil.github.io/2021/07/25/apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"/>
+    <id>https://sinevil.github.io/2021/07/25/apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/</id>
     <published>2021-07-25T01:29:31.000Z</published>
     <updated>2021-07-27T01:27:40.560Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>Apache换行解析漏洞(CVE-2017-15715)</strong></p><ul><li>影响版本</li></ul><p>Apache httpd 2.4.0 ~ 2.4.29</p><ul><li>原理</li></ul><p>apache在修复第一个后缀名解析漏洞时，用正则表达式匹配后缀。在正则表示式中，<code>$</code>用来匹配字符串结尾位置，但如果设置了RegExp对象的Multiline属性，则$也匹配<code>\n</code>或者<code>\r</code>,</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#httpd解析php文件的表达式</span></span><br><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line"><span class="comment">#&lt;FilesMatch&gt; 中指定的表达式可以将“$”匹配到恶意文件名中的换行符，而不是仅匹配文件名的末尾。这可以在某些文件的上传被外部阻止的环境中被利用，但只能通过匹配文件名的尾随部分</span></span><br></pre></td></tr></table></figure><p>由于是黑名单匹配，所以我们的上传可以成功，并且在解析时会匹配换行符，我们访问时在php后加上%0a即可正常访问。</p><p><strong>漏洞复现</strong></p><ul><li>打开环境，可以清晰的发现是一个文件上传点，我们首先选择对其查看源码</li></ul><p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210723104444.png" alt="QQ截图20210723104444"></p><ul><li>源码中并无法确认是属于什么类型的文件上传，但是文件上传只是一个站的其中一个功能，选择对这个站进行信息搜集</li></ul><p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210725091747.png" alt="QQ截图20210725091747"></p><ul><li>发现其中间件有Apache，且Apache版本为2.4.10</li></ul><p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210725102727.png" alt="QQ截图20210725102727"></p><ul><li>搜寻到Apache的换行解析漏洞，通过bp抓包上传一个一句话的<code>.php</code>文件并在其后缀加上换行符</li></ul><p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210725092156.png" alt="QQ截图20210725092156"></p><ul><li>将其发包，通过phpinfo();函数判断其是否上传成功并获取shell</li></ul><p><img src="/2021/07/25/apachejiexi/QQ%E6%88%AA%E5%9B%BE20210725092319.png" alt="QQ截图20210725092319"></p>]]></content>
+    <content type="html"><![CDATA[<p><strong>Apache换行解析漏洞(CVE-2017-15715)</strong></p><ul><li>影响版本</li></ul><p>Apache httpd 2.4.0 ~ 2.4.29</p><ul><li>原理</li></ul><p>apache在修复第一个后缀名解析漏洞时，用正则表达式匹配后缀。在正则表示式中，<code>$</code>用来匹配字符串结尾位置，但如果设置了RegExp对象的Multiline属性，则$也匹配<code>\n</code>或者<code>\r</code>,</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#httpd解析php文件的表达式</span></span><br><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line"><span class="comment">#&lt;FilesMatch&gt; 中指定的表达式可以将“$”匹配到恶意文件名中的换行符，而不是仅匹配文件名的末尾。这可以在某些文件的上传被外部阻止的环境中被利用，但只能通过匹配文件名的尾随部分</span></span><br></pre></td></tr></table></figure><p>由于是黑名单匹配，所以我们的上传可以成功，并且在解析时会匹配换行符，我们访问时在php后加上%0a即可正常访问。</p><p><strong>漏洞复现</strong></p><ul><li>打开环境，可以清晰的发现是一个文件上传点，我们首先选择对其查看源码</li></ul><p><img src="/2021/07/25/apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/QQ%E6%88%AA%E5%9B%BE20210723104444.png" alt="QQ截图20210723104444"></p><ul><li>源码中并无法确认是属于什么类型的文件上传，但是文件上传只是一个站的其中一个功能，选择对这个站进行信息搜集</li></ul><p><img src="/2021/07/25/apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/QQ%E6%88%AA%E5%9B%BE20210725091747.png" alt="QQ截图20210725091747"></p><ul><li>发现其中间件有Apache，且Apache版本为2.4.10</li></ul><p><img src="/2021/07/25/apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/QQ%E6%88%AA%E5%9B%BE20210725102727.png" alt="QQ截图20210725102727"></p><ul><li>搜寻到Apache的换行解析漏洞，通过bp抓包上传一个一句话的<code>.php</code>文件并在其后缀加上换行符</li></ul><p><img src="/2021/07/25/apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/QQ%E6%88%AA%E5%9B%BE20210725092156.png" alt="QQ截图20210725092156"></p><ul><li>将其发包，通过phpinfo();函数判断其是否上传成功并获取shell</li></ul><p><img src="/2021/07/25/apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/QQ%E6%88%AA%E5%9B%BE20210725092319.png" alt="QQ截图20210725092319"></p>]]></content>
     
     
       
@@ -327,8 +369,8 @@
   
   <entry>
     <title>代码执行漏洞</title>
-    <link href="https://sinevil.github.io/2021/07/23/daima/"/>
-    <id>https://sinevil.github.io/2021/07/23/daima/</id>
+    <link href="https://sinevil.github.io/2021/07/23/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/"/>
+    <id>https://sinevil.github.io/2021/07/23/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/</id>
     <published>2021-07-23T08:22:59.000Z</published>
     <updated>2021-08-08T08:56:33.139Z</updated>
     
@@ -357,8 +399,8 @@
   
   <entry>
     <title>命令执行漏洞</title>
-    <link href="https://sinevil.github.io/2021/07/23/mingling/"/>
-    <id>https://sinevil.github.io/2021/07/23/mingling/</id>
+    <link href="https://sinevil.github.io/2021/07/23/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/"/>
+    <id>https://sinevil.github.io/2021/07/23/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</id>
     <published>2021-07-23T07:46:24.000Z</published>
     <updated>2021-08-08T09:03:05.434Z</updated>
     
@@ -385,8 +427,8 @@
   
   <entry>
     <title>PHP常用配置</title>
-    <link href="https://sinevil.github.io/2021/07/22/phppeizhi/"/>
-    <id>https://sinevil.github.io/2021/07/22/phppeizhi/</id>
+    <link href="https://sinevil.github.io/2021/07/22/php%E9%85%8D%E7%BD%AE/"/>
+    <id>https://sinevil.github.io/2021/07/22/php%E9%85%8D%E7%BD%AE/</id>
     <published>2021-07-22T01:46:55.000Z</published>
     <updated>2021-08-13T02:50:15.676Z</updated>
     
@@ -409,8 +451,8 @@
   
   <entry>
     <title>任意文件下载漏洞</title>
-    <link href="https://sinevil.github.io/2021/07/21/renyi/"/>
-    <id>https://sinevil.github.io/2021/07/21/renyi/</id>
+    <link href="https://sinevil.github.io/2021/07/21/%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/"/>
+    <id>https://sinevil.github.io/2021/07/21/%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</id>
     <published>2021-07-21T09:03:47.000Z</published>
     <updated>2021-08-08T09:51:31.752Z</updated>
     
@@ -437,8 +479,8 @@
   
   <entry>
     <title>文件包含漏洞</title>
-    <link href="https://sinevil.github.io/2021/07/20/wenjian/"/>
-    <id>https://sinevil.github.io/2021/07/20/wenjian/</id>
+    <link href="https://sinevil.github.io/2021/07/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    <id>https://sinevil.github.io/2021/07/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</id>
     <published>2021-07-20T06:42:33.000Z</published>
     <updated>2021-08-08T10:54:16.067Z</updated>
     
@@ -465,8 +507,8 @@
   
   <entry>
     <title>php弱类型比较</title>
-    <link href="https://sinevil.github.io/2021/07/20/phpruo/"/>
-    <id>https://sinevil.github.io/2021/07/20/phpruo/</id>
+    <link href="https://sinevil.github.io/2021/07/20/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/"/>
+    <id>https://sinevil.github.io/2021/07/20/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/</id>
     <published>2021-07-20T03:19:58.000Z</published>
     <updated>2021-08-13T02:49:57.255Z</updated>
     
@@ -494,8 +536,8 @@
   
   <entry>
     <title>一句话木马</title>
-    <link href="https://sinevil.github.io/2021/07/19/yijuhua/"/>
-    <id>https://sinevil.github.io/2021/07/19/yijuhua/</id>
+    <link href="https://sinevil.github.io/2021/07/19/%E4%B8%80%E5%8F%A5%E8%AF%9D/"/>
+    <id>https://sinevil.github.io/2021/07/19/%E4%B8%80%E5%8F%A5%E8%AF%9D/</id>
     <published>2021-07-19T11:23:05.000Z</published>
     <updated>2021-08-02T09:04:24.445Z</updated>
     
@@ -518,57 +560,6 @@
     
     
     <category term="Webshell" scheme="https://sinevil.github.io/tags/Webshell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>port</title>
-    <link href="https://sinevil.github.io/2021/07/18/port/"/>
-    <id>https://sinevil.github.io/2021/07/18/port/</id>
-    <published>2021-07-18T03:06:11.000Z</published>
-    <updated>2021-07-27T01:27:12.363Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">常见端口汇总</span><br><span class="line">21端口：是FTP文件传输协议（控制）代理服务常用端口，用于连接</span><br><span class="line">22端口：是SSH远程登录协议的默认端口</span><br><span class="line">23端口：telnet（终端仿真协议）代理服务器常用端口</span><br><span class="line">80端口：http（超文本传输协议）用于网页浏览</span><br><span class="line">443端口：https服务，是提供加密和通过安全端口传输的另一种HTTP。</span><br><span class="line">1433端口：Microsoft的SQL服务默认端口</span><br><span class="line">1521端口：Oracle数据库默认端口</span><br><span class="line">3306端口：MySQL默认端口</span><br><span class="line">3389端口：Windows 2000远程桌面默认端口</span><br><span class="line">5432端口：PostgreSQL数据库的默认端口</span><br><span class="line">6379端口：阿里云开放的Redis的默认端口</span><br><span class="line">7001端口：Freak88，Weblogic默认端口</span><br><span class="line">7002端口：使用者&amp;组 数据库</span><br><span class="line">8080端口：www代理服务默认端口</span><br><span class="line">27017端口：MongoDB数据库默认端口</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=</summary>
-      
-    
-    
-    
-    <category term="web基础" scheme="https://sinevil.github.io/categories/web%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="端口" scheme="https://sinevil.github.io/tags/%E7%AB%AF%E5%8F%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>tomcat弱密码爆破</title>
-    <link href="https://sinevil.github.io/2021/07/15/tomcat/"/>
-    <id>https://sinevil.github.io/2021/07/15/tomcat/</id>
-    <published>2021-07-15T07:58:00.000Z</published>
-    <updated>2021-08-03T03:29:36.184Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li> 打开网页获取有效信息，Apache Tomcat/8.0.43及其醒目，猜测为一款软件以及他的版本号</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210716090825.png" alt="QQ截图20210716090825"></p><ul><li>不晓得tomcat是什么，百度一波</li></ul><p>Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p><ul><li>因为要渗透该靶场，所以查看一下tomcat的目录情况，深入了解tomcat的信息</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/bin  <span class="comment">#二进制文件</span></span><br><span class="line"> startup.bat      <span class="comment">#启动tomcat服务</span></span><br><span class="line"> shutdown.bat     <span class="comment">#关闭tomcat服务</span></span><br><span class="line">/conf  <span class="comment">#配置文件 </span></span><br><span class="line"> sever.xml        <span class="comment">#定义了tomcat启动时涉及的组件属性</span></span><br><span class="line"> tomcat-users.xml <span class="comment">#tomcat的用户密码和权限</span></span><br><span class="line"> web.xml          <span class="comment">#定义servlet </span></span><br><span class="line">/lib   <span class="comment">#存放全局的jar包</span></span><br><span class="line">/logs  <span class="comment">#日志</span></span><br><span class="line">/temp  <span class="comment">#临时文件</span></span><br><span class="line">/webapps  <span class="comment">#存放JAVA的WEB项目            </span></span><br><span class="line">        /manager  <span class="comment">#后台登录界面</span></span><br><span class="line">        /ROOT     <span class="comment">#根目录</span></span><br><span class="line">/work  <span class="comment">#存放jsp编译后产生的class文件</span></span><br></pre></td></tr></table></figure><ul><li>tomcat有一个后台登录界面，我们尝试访问一下，弹出登录框，我们首先想到爆破，但是可以先搜索一下tomcat有哪些漏洞可以利用</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715163504.png" alt="QQ截图20210715163504"></p><ul><li>直接搜一波tomcat的漏洞</li></ul><p><del><strong>CVE-2017-12615</strong></del></p><p><del><strong>影响版本</strong>：Tomcat 7.0.0 ～ 7.0.79</del></p><p><del><strong>影响说明</strong>：上传webshell，任意命令执行</del></p><blockquote><p>该漏洞与提供的靶场版本不符</p></blockquote><p><del><strong>CVE-2020-1938</strong></del></p><p><del><strong>影响版本</strong>:</del></p><p><del>Apache Tomcat 9.x &lt; 9.0.31</del></p><p><del>Apache Tomcat 8.x &lt; 8.5.51</del></p><p><del>Apache Tomcat 7.x &lt; 7.0.100</del> </p><p><del>Apache Tomcat 6.x</del></p><p><del><strong>影响说明</strong>：读取webapp下的所有文件</del></p><blockquote><p>未尝试</p></blockquote><p><strong>弱口令</strong></p><p><strong>影响版本</strong>：全版本</p><p><strong>环境说明</strong>：后台上传文件，getshell</p><ul><li><p>因为存在后台登录界面，介于自锁功能已经关闭，利用弱密码漏洞进行爆破</p><p>msf自带针对tomcat弱密码的爆破功能，在修改字典文档后进行爆破，得到tomcat的账号以及密码</p></li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715145404.png" alt="QQ截图20210715145404"></p><ul><li>进入tomcat的后台，发现文件上传点</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715153939.png" alt="QQ截图20210715153939"></p><ul><li>标识需要上传一个<code>.war</code>文件，将冰蝎自配的<code>.jsp</code>打包成<code>.war</code>文件后上传，上传成功</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154059.png" alt="QQ截图20210715154059"></p><ul><li>再用连接冰蝎，获取shell，寻找flag</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154414.png" alt="QQ截图20210715154414"></p><ul><li>在根目录下找到一个flag文件，但是flag信息为fake flag，查看主机系统为liunx，使用find命令查询所有带flag文件，最后发现只有一个flag文件，在根目录下，判断为所找的flag</li></ul><p><img src="/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210715154747.png" alt="QQ截图20210715154747"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt; 打开网页获取有效信息，Apache Tomcat/8.0.43及其醒目，猜测为一款软件以及他的版本号&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;/2021/07/15/tomcat/QQ%E6%88%AA%E5%9B%BE20210716090825.p</summary>
-      
-    
-    
-    
-    <category term="漏洞总结" scheme="https://sinevil.github.io/categories/%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"/>
-    
-    
-    <category term="中间件漏洞" scheme="https://sinevil.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
     
   </entry>
   
