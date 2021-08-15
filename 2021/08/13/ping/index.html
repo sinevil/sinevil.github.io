@@ -48,14 +48,13 @@
 <p><img src="/2021/08/13/ping/v2-99f5cb96bd66d4d1c42ed4757dda438d_720w.jpg" alt="v2-99f5cb96bd66d4d1c42ed4757dda438d_720w"><br>可以向对端主机发送<strong>回送请求</strong>的消息（<code>ICMP Echo Request Message</code>，类型 <code>8</code>），也可以接收对端主机发回来的<strong>回送应答</strong>消息（<code>ICMP Echo Reply Message</code>，类型 <code>0</code>）</p>
 <p><img src="/2021/08/13/ping/v2-6e5a1c43ead4f234faafea0a6dc0b99f_720w.jpg" alt="v2-6e5a1c43ead4f234faafea0a6dc0b99f_720w"></p>
 <ul>
-<li><p>相比原生的 ICMP，这里多了两个字段：</p>
-<ul>
+<li>相比原生的 ICMP，这里多了两个字段：<ul>
 <li>标识符：用以区分是哪个应用程序发 ICMP 包，比如用进程 <code>PID</code> 作为标识符；</li>
 <li>序号：序列号从 <code>0</code> 开始，每发送一次新的回送请求就会加 <code>1</code>， 可以用来确认网络包是否有丢失。</li>
 </ul>
-<p>在选项数据中，<code>ping</code> 还会存放发送请求的时间值，来计算往返时间，说明路程的长短</p>
 </li>
 </ul>
+<p>在选项数据中，<code>ping</code> 还会存放发送请求的时间值，来计算往返时间，说明路程的长短</p>
 </li>
 <li><p>差错报文类型</p>
 <ul>
@@ -150,9 +149,9 @@
 <li>另外一个是<strong>序号</strong>，主要用于区分连续 ping 的时候发出的多个数据包。</li>
 </ul>
 <p>每发出一个请求数据包，序号会自动加 <code>1</code>。为了能够计算往返时间 <code>RTT</code>，它会在报文的数据部分插入发送时间。</p>
-<p><img src="/2021/08/13/ping/v2-7fc0891849170023bca4ed09ad1fd2ae_720w.jpg" alt="img"></p>
+<p><img src="/2021/08/13/ping/v2-7fc0891849170023bca4ed09ad1fd2ae_720w.png"></p>
 <p>然后，由 ICMP 协议将这个数据包连同地址 192.168.1.2 一起交给 IP 层。IP 层将以 192.168.1.2 作为<strong>目的地址</strong>，本机 IP 地址作为<strong>源地址</strong>，<strong>协议</strong>字段设置为 <code>1</code> 表示是 <code>ICMP</code> 协议，再加上一些其他控制信息，构建一个 <code>IP</code> 数据包。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-52bb944dcb4875d50fd1d254ecb83202_720w.jpg" alt="img"></p>
+<p><img src="/2021/08/13/ping/v2-52bb944dcb4875d50fd1d254ecb83202_720w.jpg" alt="img"></p>
 <p>接下来，需要加入 <code>MAC</code> 头。如果在本地 ARP 映射表中查找出 IP 地址 192.168.1.2 所对应的 MAC 地址，则可以直接使用；如果没有，则需要发送 <code>ARP</code> 协议查询 MAC 地址，获得 MAC 地址后，由数据链路层构建一个数据帧，目的地址是 IP 层传过来的 MAC 地址，源地址则是本机的 MAC 地址；还要附加上一些控制信息，依据以太网的介质访问规则，将它们传送出去。</p>
 <p><img src="/2021/08/13/ping/v2-356582a65204ac9801a057f13f964db2_720w.png" alt="img"></p>
 <p>主机 <code>B</code> 收到这个数据帧后，先检查它的目的 MAC 地址，并和本机的 MAC 地址对比，如符合，则接收，否则就丢弃。</p>
