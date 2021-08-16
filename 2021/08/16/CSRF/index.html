@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CSRF | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>CSRF</h1><hr></div><div id="post-content"><p><strong>CRSF</strong></p>
+<ul>
+<li>什么是CSRF</li>
+</ul>
+<p>CSRF被称为跨站请求伪造，它利用用户已登录的身份，在用户毫不知情的情况下，以用户的名义完成非法操作。跟跨网站脚本（XSS）相比，XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户（网页浏览器）的信任</p>
+<ul>
+<li>攻击原理</li>
+</ul>
+<p><img src="/2021/08/16/CSRF/v2-99d1c05df0d262a620c17f6746e0e04f_b.jpg" alt="img"></p>
+<ul>
+<li><p>攻击条件</p>
+<ul>
+<li>用户已经登录了站点A，并在本地记录了cookie</li>
+<li>在用户没有登出站点A地情况下（cookie生效），访问了恶意攻击者提供的引诱危险站点B（B站点要求访问站点A）</li>
+<li>站点A没有做任何CSRF防御</li>
+</ul>
+</li>
+<li><p>CSRF攻击分类</p>
+<ul>
+<li><p>GET类型的CSRF</p>
+<p>GET 类型的 CSRF 利用非常简单，只需要一个 HTTP 请求，一般会这样利用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;http://bank.example/withdraw?amount=10000&amp;for=hacker&quot; &gt; </span><br></pre></td></tr></table></figure>
+
+<p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。能够获取用户的敏感信息，私密数据</p>
+</li>
+<li><p>POST类型的CSRF</p>
+<p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;http://bank.example/withdraw&quot; method=POST&gt;</span><br><span class="line">  &lt;input type=&quot;hidden&quot; name=&quot;account&quot; value=&quot;xiaoming&quot; /&gt;</span><br><span class="line">  &lt;input type=&quot;hidden&quot; name=&quot;amount&quot; value=&quot;10000&quot; /&gt;</span><br><span class="line">  &lt;input type=&quot;hidden&quot; name=&quot;for&quot; value=&quot;hacker&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  document.forms[0].submit();</span><br><span class="line">&lt;/script&gt; </span><br></pre></td></tr></table></figure>
+
+<p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。</p>
+<p>POST类型的攻击通常比GET要求更加严格一点，但仍并不复杂。任何个人网站、博客，被黑客上传页面的网站都有可能是发起攻击的来源，后端接口不能将安全寄托在仅允许POST上面</p>
+</li>
+<li><p>连接类型的CSRF</p>
+<p>链接类型的 CSRF 并不常见，比起其他两种用户打开页面就中招的情况，这种需要用户点击链接才会触发。这种类型通常是在论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，攻击者通常会以比较夸张的词语诱骗用户点击，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot; taget=&quot;_blank&quot;&gt;重磅消息！！&lt;a/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由于之前用户登录了信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，则表示攻击成功。</p>
+</li>
+</ul>
+</li>
+<li><p>CSRF的特点</p>
+<ul>
+<li>攻击一般发起在第三方网站，而不是被攻击的网站，被攻击的网站无法防止攻击发生</li>
+<li>攻击利用受害者在被攻击网站的登录凭证，冒充受害者提交操作，而不是直接盗取数据</li>
+<li>整个过程攻击者不能获取到受害者的登录凭证，仅仅是 ‘ 冒用 ’ </li>
+<li>跨站请求可以用各种方式，图片URL, 超链接， CORS， Form提交等，部分请求可以直接嵌入到第三方论坛中，文章中，难以进行追踪</li>
+</ul>
+</li>
+<li><p>漏洞防护</p>
+<ul>
+<li><p>充分利用好Cookie的SameSite属性</p>
+<p>CSRF攻击是利用用户的登录状态来发起的攻击，而Cookie正是浏览器和服务器质检维护登录状态的一个关键数据，通常CSRF攻击都是从第三方站点发起的，要防止CSRF攻击，最好的就是在第三方站点发送请求时禁止携带Cookie，而SameSite正好能解决我们的问题，，通过使用SaneSite属性来降低CSRF攻击的风险。</p>
+<blockquote>
+<p>SameSite的属性：</p>
+<ol>
+<li>Strict</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Strict是最严格的属性，如果给Cookie设置了Strict，那么浏览器会完全禁止第三方Cookie，就比如通过第三方站点去访问当前站点的资源，那么Cookie是不会被发送到当前站点的服务器上。</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Lax</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Lax相对宽松一点，在跨站点的情况下，从第三方站点的链接打开和从第三方站点提交Get的表单都会携带cookie.但是如果在第三方站点中使用Post方法或者通过img、iframe等标签加载的URL,都不会携带Cookie。</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>None, 任何情况下都会发送Cookie。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>所以我们可以针对一些情况使用Strict或者Lax来防止CSRF攻击</p>
+<ul>
+<li><p>验证请求的来源站点</p>
+<p>由于 CSRF 攻击大多来自于第三方站点，因此服务器可以禁止来自第三方站点的请求。那么该怎么判断请求是否来自第三方站点呢？ 下面介绍下Referer和Origin属性。</p>
+<ol>
+<li><p>Referer属性</p>
+<p>记录了该http请求的来源地址，但有些场景不适合将来源URL暴露给服务器，所以可以设置不用上传，并且referer属性是可以修改的，所以在服务器端校验referer属性并没有那么可靠</p>
+</li>
+<li><p>origin属性</p>
+<p>通过XMLHttpRequest、Fetch发起的跨站请求或者Post方法发送请求时，都会带上origin,所以服务器可以优先判断Origin属性，再根据实际情况判断是否使用referer判断。</p>
+</li>
+</ol>
+<p>因此，服务器的策略是优先判断 Origin，如果请求头中没有包含 Origin 属性，再根据实际情况判断是否使用 Referer 值。</p>
+</li>
+<li><p>CSRF Token</p>
+<p>使用CSRFToken有两步</p>
+<ol>
+<li>在浏览器向服务器发起请求时，服务器生成一个CSRF Token（字符串）发送给浏览器，然后将该字符串放入页面中</li>
+<li>浏览器请求时（如表单提交）需要带上这个CSRF Token。服务器收到请求后，验证CSRF是否合法，如果不合法拒绝即可。</li>
+</ol>
+<p>其实 CSRF TOKEN类似于cookie, 都是存储用户信息，而此用户信息只存储在当前你请求的站点，而不是浏览器，所以不同的标签页面，或不同次的请求（在浏览器上同时打开两个相同的页面也会生成两个不同的Token）是不共享此用户信息的，所以规避了cookie所带来的的漏洞 。</p>
+</li>
+</ul>
+</li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/08/13/OSI/">OSI七层模型 Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: ''
+ , appKey: ''
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Mr.Li</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">23</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">15</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">5</span></div></section></div><div id="aside-block"></div><footer style="text-align: right"><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
