@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PHP反序列化漏洞(停制) | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PHP反序列化漏洞 | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
  font-family: BenderLight;
  src: local('Bender'), url("/font/BenderLight.ttf");
 }
@@ -6,7 +6,7 @@
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
-</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>PHP反序列化漏洞(停制)</h1><hr></div><div id="post-content"><p><strong>PHP的类和对象</strong></p>
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>PHP反序列化漏洞</h1><hr></div><div id="post-content"><p><strong>PHP的类和对象</strong></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">classs person&#123;<span class="number">0</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="comment">#定义了一个person类，在类中定义了一个public类型的变量$name和类的方法smile，然后实例化一个对象$psycho，去调用person类里面的smile方法</span></span><br></pre></td></tr></table></figure>
 
 
