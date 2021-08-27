@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SSRF和CSRF | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>SSRF和CSRF</h1><hr></div><div id="post-content"><h4 id="SSRF和CSRF"><a href="#SSRF和CSRF" class="headerlink" title="SSRF和CSRF"></a>SSRF和CSRF</h4><p>昨天正好被问到SSR和CSRF的区别，才发现他们都是请求伪造，今天又正好做到一个有关SSRF的CTF，正好趁热打铁，研究研究他们俩到底有什么区别</p>
+<ul>
+<li> 本质区别</li>
+</ul>
+<p>CSRF是跨站请求伪造，伪造的是客户端，即盗用用户身份，一般是利用已经登录的用户去执行用户操作</p>
+<p>SSRF是服务端请求伪造，盗用的是服务器身份，一般用于外网探测和攻击内网服务</p>
+<ul>
+<li>攻击原理</li>
+</ul>
+<p>CSRF：</p>
+<p><img src="/2021/08/26/SSRF-CSRF/v2-99d1c05df0d262a620c17f6746e0e04f_r.jpg" alt="v2-99d1c05df0d262a620c17f6746e0e04f_r"></p>
+<p>SSRF:</p>
+<p><img src="/2021/08/26/SSRF-CSRF/v2-bca50003926a87fdd4be2c30d1828d70_720w.jpg" alt="v2-bca50003926a87fdd4be2c30d1828d70_720w"></p>
+<ul>
+<li>检测漏洞</li>
+</ul>
+<p>CSRF：</p>
+<p>抓取请求包，去掉referer字段进行访问，如果访问有效则存在漏洞</p>
+<p>SSRF:</p>
+<p>通过抓包来分析发送请求是否由客户端发送从而确认是否为SSRF漏洞，也可以通过观察网页源代码判断。</p>
+<ul>
+<li>防护方法</li>
+</ul>
+<p>CSRF：</p>
+<ol>
+<li><p>设置referer字段，但是并不是所有服务器在任何时候都可以接收referer字段，所以这个方法存在一定的局限性</p>
+</li>
+<li><p>设置验证码，在用户操作的过程中设置身份确认的验证码，</p>
+</li>
+<li><p>设置token值，在用户请求中设置一个随机没有规律的token值</p>
+</li>
+</ol>
+<p>SSRF:</p>
+<ol>
+<li>验证用户请求的内网资源IP</li>
+<li>设置白名单，或者黑名单</li>
+</ol>
+<p>详情</p>
+<p><a href="https://sinevil.github.io/2021/08/16/CSRF/">CSRF</a></p>
+<p><a href>SSRF</a></p>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/08/27/SSRF/">← Prev SSRF</a><span style="color: #fe2"> | </span><a href="/2021/08/26/ctf2/">Fakebook 1 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: ''
+ , appKey: ''
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Mr.Li</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">30</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">17</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">6</span></div></section></div><div id="aside-block"></div><footer style="text-align: right"><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
