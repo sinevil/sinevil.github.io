@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CTF | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>XXE_CTF | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
  font-family: BenderLight;
  src: local('Bender'), url("/font/BenderLight.ttf");
 }
@@ -6,14 +6,14 @@
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
-</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>CTF</h1><hr></div><div id="post-content"><h3 id="XML-CTF"><a href="#XML-CTF" class="headerlink" title="XML CTF"></a>XML CTF</h3><h4 id="NCTF2019-Fake-XML-cookbook"><a href="#NCTF2019-Fake-XML-cookbook" class="headerlink" title="[NCTF2019]Fake XML cookbook"></a>[NCTF2019]Fake XML cookbook</h4><ul>
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>XXE_CTF</h1><hr></div><div id="post-content"><h3 id="XML-CTF"><a href="#XML-CTF" class="headerlink" title="XML CTF"></a>XML CTF</h3><h4 id="NCTF2019-Fake-XML-cookbook"><a href="#NCTF2019-Fake-XML-cookbook" class="headerlink" title="[NCTF2019]Fake XML cookbook"></a>[NCTF2019]Fake XML cookbook</h4><ul>
 <li>类似与之前做的XXE靶场，给了一个登录框</li>
 </ul>
-<p><img src="/2021/09/06/XXE%E7%BB%83%E4%B9%A0/QQ%E6%88%AA%E5%9B%BE20210906165340.png" alt="QQ截图20210906165340"></p>
+<p><img src="/2021/09/06/XXE-CTF/QQ%E6%88%AA%E5%9B%BE20210906165340.png" alt="QQ截图20210906165340"></p>
 <ul>
 <li>老方法，随便输入账号密码，bp抓包，查看是否存在XML实体</li>
 </ul>
-<p><img src="/2021/09/06/XXE%E7%BB%83%E4%B9%A0/QQ%E6%88%AA%E5%9B%BE20210906170103.png" alt="QQ截图20210906170103"></p>
+<p><img src="/2021/09/06/XXE-CTF/QQ%E6%88%AA%E5%9B%BE20210906170103.png" alt="QQ截图20210906170103"></p>
 <ul>
 <li>存在外部实体，进行恶意构造</li>
 </ul>
@@ -24,23 +24,23 @@
 <ul>
 <li>成功获取flag</li>
 </ul>
-<p><img src="/2021/09/06/XXE%E7%BB%83%E4%B9%A0/QQ%E6%88%AA%E5%9B%BE20210906170240.png" alt="QQ截图20210906170240"></p>
+<p><img src="/2021/09/06/XXE-CTF/QQ%E6%88%AA%E5%9B%BE20210906170240.png" alt="QQ截图20210906170240"></p>
 <h4 id="NCTF2019-True-XML-cookbook"><a href="#NCTF2019-True-XML-cookbook" class="headerlink" title="[NCTF2019]True XML cookbook"></a>[NCTF2019]True XML cookbook</h4><ul>
 <li>按照上述思路对该题进行操作，发现没能获取flag，反而出现了报错</li>
 </ul>
-<p><img src="/2021/09/06/XXE%E7%BB%83%E4%B9%A0/QQ%E6%88%AA%E5%9B%BE20210906170548.png" alt="QQ截图20210906170548"></p>
+<p><img src="/2021/09/06/XXE-CTF/QQ%E6%88%AA%E5%9B%BE20210906170548.png" alt="QQ截图20210906170548"></p>
 <ul>
 <li>看了一下其他大佬的blog，发现可以用XML构造恶意实体可以扫描内网存活端口</li>
 </ul>
-<p><img src="/2021/09/06/XXE%E7%BB%83%E4%B9%A0/QQ%E6%88%AA%E5%9B%BE20210906170952.png" alt="QQ截图20210906170952"></p>
+<p><img src="/2021/09/06/XXE-CTF/QQ%E6%88%AA%E5%9B%BE20210906170952.png" alt="QQ截图20210906170952"></p>
 <ul>
 <li>访问10.0.197.2后发现警告</li>
 </ul>
-<p><img src="/2021/09/06/XXE%E7%BB%83%E4%B9%A0/QQ%E6%88%AA%E5%9B%BE20210906182608.png" alt="QQ截图20210906182608"></p>
+<p><img src="/2021/09/06/XXE-CTF/QQ%E6%88%AA%E5%9B%BE20210906182608.png" alt="QQ截图20210906182608"></p>
 <ul>
 <li>用bp爆破爬虫其c段，获取可访问的IP</li>
 </ul>
-<p><img src="/2021/09/06/XXE%E7%BB%83%E4%B9%A0/QQ%E6%88%AA%E5%9B%BE20210906183121.png" alt="QQ截图20210906183121"></p>
+<p><img src="/2021/09/06/XXE-CTF/QQ%E6%88%AA%E5%9B%BE20210906183121.png" alt="QQ截图20210906183121"></p>
 <ul>
 <li>重新构造外部实体，获取flag</li>
 </ul>
