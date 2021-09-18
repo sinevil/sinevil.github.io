@@ -6,7 +6,10 @@
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
-</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1></h1><hr></div><div id="post-content"><p>title: vul-1<br>date: 2021-09-12 16:15:28<br>tags: vulstrack<br>categories: 渗透实战</p>
+</head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/schedule/">Synopsis</a></nav></header><main style="flex-direction: row-reverse"><article><div id="post-bg"><div id="post-title"><h1></h1><hr></div><div id="post-content"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: vul-1</span><br><span class="line">date: 2021-09-12 16:15:28</span><br><span class="line">tags: vulstrack</span><br><span class="line">categories: 渗透实战</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="vul-1"><a href="#vul-1" class="headerlink" title="vul-1"></a>vul-1</h3><h4 id="第一层主机"><a href="#第一层主机" class="headerlink" title="[第一层主机]"></a>[第一层主机]</h4><ul>
 <li><p>打开<a target="_blank" rel="noopener" href="http://10.203.87.107/%E9%9D%B6%E5%9C%BA%EF%BC%8CThinkPHP">http://10.203.87.107/靶场，ThinkPHP</a> V5映入眼帘</p>
 <p><img src="/2021/09/12/red1/QQ%E6%88%AA%E5%9B%BE20210916160243.png" alt="QQ截图20210916160243"></p>
@@ -98,7 +101,9 @@
 
 
 
-<h6 id="meterperter模块"><a href="#meterperter模块" class="headerlink" title="meterperter模块"></a>meterperter模块</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">getuid 	<span class="comment">#查看当前权限</span></span><br><span class="line">sysinfo <span class="comment">#显示远程主机系统信息</span></span><br><span class="line">route 	<span class="comment">#查看路由信息</span></span><br><span class="line">route add -s 网段 <span class="comment">#添加路由</span></span><br><span class="line">search socks	<span class="comment">#寻找代理模块	</span></span><br><span class="line">vim /etc/proxychains4.conf	<span class="comment">#配置msf本地代理</span></span><br></pre></td></tr></table></figure><div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/09/13/ctf3/">← Prev easy_serialize_php</a><span style="color: #fe2"> | </span><a href="/2021/09/08/XXE-CTF/">XXE_CTF Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+<h6 id="meterperter模块"><a href="#meterperter模块" class="headerlink" title="meterperter模块"></a>meterperter模块</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">getuid 	<span class="comment">#查看当前权限</span></span><br><span class="line">sysinfo <span class="comment">#显示远程主机系统信息</span></span><br><span class="line">route 	<span class="comment">#查看路由信息</span></span><br><span class="line">route add -s 网段 <span class="comment">#添加路由</span></span><br><span class="line">search socks	<span class="comment">#寻找代理模块	</span></span><br><span class="line">vim /etc/proxychains4.conf	<span class="comment">#配置msf本地代理</span></span><br></pre></td></tr></table></figure>
+
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/09/13/ctf3/">← Prev easy_serialize_php</a><span style="color: #fe2"> | </span><a href="/2021/09/08/XXE-CTF/">XXE_CTF Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
  el: '#Valine'
  , appId: ''
  , appKey: ''
